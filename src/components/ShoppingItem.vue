@@ -1,0 +1,41 @@
+<template>
+  <q-item>
+    <div class="q-gutter-md">
+      <q-checkbox v-model="val" />
+    </div>
+
+    <q-item-section class="q-pl-md">
+      <q-item-label class="text-weight-medium">{{name}}</q-item-label>
+    </q-item-section>
+
+    <q-item-section side>
+      <q-input class="input_style" dense rounded standout v-model="itemNumber">
+        <template v-slot:prepend>
+          <q-icon name="remove" />
+        </template>
+        <template v-slot:append>
+          <q-icon name="add" @click="text = ''" class="cursor-pointer" />
+        </template>
+      </q-input>
+    </q-item-section>
+  </q-item>
+
+</template>
+
+<script>
+export default {
+  name: 'ShoppingItem',
+  props: {
+    itemNumber: Number,
+    name: String,
+    val: Boolean
+  }
+}
+</script>
+
+<style>
+.input_style{
+  text-align-last: center;
+  max-width: 150px;
+}
+</style>
