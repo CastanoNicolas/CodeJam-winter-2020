@@ -1,39 +1,39 @@
 <template>
   <div class="fixed-center text-center">
-    RecipeList {{test}}
+    RecipeList {{ test }}
     <q-btn color="white" text-color="black" label="Standard" @click="testmet()" />
   </div>
 </template>
 
 <script>
 import { listManagerMixin } from '../mixins/listManagerMixin'
+import { Recipe } from '../classes/Recipe'
 
 export default {
   name: 'RecipeListList',
   data () {
     return {
-      a: { blub: 'A', blib: '' },
-      b: { blub: 'B', blib: 'Z' },
-      c: []
+      // variables constantes
     }
   },
+  created () {
+    // lancement apres cretion de la page
+  },
   computed: {
-    test () {
-      return { blub: 'A', blib: '', ...this.b }
-    },
+    // variables actualiser si changement (observables/observeur en un)
     ingredientList () {
-      return this.$store.getters.mainModule.getShoppingList
+      return this.$store.getters.mainModule.getRecipeList
     }
   },
   methods: {
-    removeIngredientFromShoppingList (ingredient, quantity) {
-      this.$store.commit('removeIngredientFromShoppingList', { ingredient, quantity })
+    removeRecipeFromRecipeList (recipe) {
+      this.$store.commit('removeRecipeFromRecipeList', recipe)
     },
-    testmet () {
-
+    addRecipeToRecipeList (ingredientList, quantityList, description, categories) {
+      let newRecipe = new Recipe(ingredientList, quantityList, description, categories)
+      this.$store.commit('addRecipeToRecipeList', newRecipe)
     }
   },
   mixins: [listManagerMixin]
-
 }
 </script>
