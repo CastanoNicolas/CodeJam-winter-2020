@@ -13,12 +13,22 @@ export class StockList {
       if (typeof this.ingredientList[ingredient.name] === 'undefined') {
         this.ingredientList[ingredient.name] = []
       }
-      this.ingredientList[ingredient.name].push({ ...ingredient, expiryDate: Date.now() + ingredient.dayBeforeStale })
+
+      var today = new Date()
+      var expirydateValue = new Date()
+      var newDate = today.getDate() + ingredient.dayBeforeStale
+      expirydateValue.setDate(newDate)
+
+      this.ingredientList[ingredient.name].push({ ...ingredient, expiryDate: expirydateValue })
     }
   }
   removeIngredient (ingredient, quantity) {
-    for (let index = 0; index < quantity; index++) {
-      this.ingredientList[ingredient.name].shift()
+    if (this.ingredientList[ingredient.name].length <= quantity) {
+      delete this.ingredientList[ingredient.name]
+    } else {
+      for (let index = 0; index < quantity; index++) {
+        this.ingredientList[ingredient.name].shift()
+      }
     }
   }
   addRecipe (recipe, quantity) {
