@@ -36,10 +36,10 @@ export default {
       state.recipeList.removeRecipe(recipe)
     },
     addRecipeToStockList (state, recipe) {
-
+      state.stockList.addRecipe(recipe)
     },
     removeRecipeToStockList (state, recipe) {
-
+      state.stockList.removeRecipe(recipe)
     }
 
   },
