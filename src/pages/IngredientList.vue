@@ -1,10 +1,12 @@
 <template>
   <div class="fixed-center text-center">
-
+    ingredientList
   </div>
 </template>
 
 <script>
+import { listManagerMixin } from '../mixins/listManagerMixin'
+
 export default {
   name: 'IngredientList',
   computed: {
@@ -15,14 +17,9 @@ export default {
   methods: {
     removeIngredientFromIngredientList (ingredient) {
       this.$store.commit('removeIngredientFromIngredientList', ingredient)
-    },
-    addIngredientToShoppingList (ingredient) {
-      this.$store.commit('addIngredientToShoppingList', ingredient)
-    },
-    addIngredientToStockList (ingredient) {
-      this.$store.commit('addIngredientToStockList', ingredient)
     }
-  }
+  },
+  mixins: [listManagerMixin]
 
 }
 </script>

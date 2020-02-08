@@ -17,17 +17,17 @@ export default {
     removeIngredientFromIngredientList (state, ingredient) {
       state.ingredientList.removeIngredient(ingredient)
     },
-    addIngredientToStockList (state, ingredient) {
-      state.stockList.addIngredient(ingredient)
+    addIngredientToStockList (state, { ingredient, quantity }) {
+      state.stockList.addIngredient(ingredient, quantity)
     },
-    removeIngredientFromStockList (state, ingredient) {
-      state.stockList.removeIngredient(ingredient)
+    removeIngredientFromStockList (state, { ingredient, quantity }) {
+      state.stockList.removeIngredient(ingredient, quantity)
     },
-    addIngredientToShoppingList (state, ingredient) {
-      state.shoppingList.addIngredient(ingredient)
+    addIngredientToShoppingList (state, { ingredient, quantity }) {
+      state.shoppingList.addIngredient(ingredient, quantity)
     },
-    removeIngredientFromShoppingList (state, ingredient) {
-      state.shoppingList.removeIngredient(ingredient)
+    removeIngredientFromShoppingList (state, { ingredient, quantity }) {
+      state.shoppingList.removeIngredient(ingredient, quantity)
     },
     addRecipeToRecipeList (state, recipe) {
       state.recipeList.addRecipe(recipe)
