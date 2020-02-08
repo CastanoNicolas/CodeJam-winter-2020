@@ -51,8 +51,9 @@ export default {
       )
     },
     addRecipeToStockList (recipe, quantity) {
+      let newRecipe = new Recipe({ ...recipe, expiryDate: Date.now() + recipe.dayBeforeStale })
       this.$store.commit('addRecipeToStockList', {
-        recipe,
+        newRecipe,
         quantity
       })
     },
