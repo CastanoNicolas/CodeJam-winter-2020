@@ -5,22 +5,6 @@ export class StockList {
     this.recipeList = {}
   }
   addIngredient (ingredient, quantity) {
-    // for (let index = 0; index < quantity; index++) {
-    //   // let object = new Ingredient(ingredient.name, ingredient.dayBeforeStale, Date.now() + ingredient.dayBeforeStale, ingredient.unity, ingredient.categories)
-    //   /*
-    //   JE CROIS QUE CA MARCHE PAS ICI !!!
-    //   */
-    //   if (typeof this.ingredientList[ingredient.name] === 'undefined') {
-    //     this.ingredientList[ingredient.name] = []
-    //   }
-
-    //   var today = new Date()
-    //   var expirydateValue = new Date()
-    //   var newDate = today.getDate() + ingredient.dayBeforeStale
-    //   expirydateValue.setDate(newDate)
-
-    //   this.ingredientList[ingredient.name].push({ ...ingredient, expiryDate: expirydateValue })
-    // }
     if (!this.ingredientList[ingredient.name]) {
       this.ingredientList[ingredient.name] = []
     }
@@ -28,13 +12,6 @@ export class StockList {
     this.ingredientList[ingredient.name].push({ ingredient: { ...ingredient, expiryDate: Date.now() + ingredient.dayBeforeStale }, quantity: quantity })
   }
   removeIngredient (ingredient, quantity) {
-    // if (this.ingredientList[ingredient.name].length <= quantity) {
-    //   delete this.ingredientList[ingredient.name]
-    // } else {
-    //   for (let index = 0; index < quantity; index++) {
-    //     this.ingredientList[ingredient.name].shift()
-    //   }
-    // }
     let exist = this.ingredientExist(ingredient)
     if (exist !== undefined) {
       this.ingredientList[ingredient.name][exist].quantity -= quantity
