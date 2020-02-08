@@ -1,20 +1,25 @@
 <template>
-  <div class="fixed-center text-center">
-    ShoppingList {{test}}
-    <q-btn color="white" text-color="black" label="Standard" @click="testmet()" />
-  </div>
+  <q-page>
+    <Search :label="label" :text="text"/>
+  </q-page>
 </template>
 
 <script>
 import { listManagerMixin } from '../mixins/listManagerMixin'
+import Search from 'components/Search'
 
 export default {
   name: 'IngredientList',
+  components: {
+    Search
+  },
   data () {
     return {
       a: { blub: 'A', blib: '' },
       b: { blub: 'B', blib: 'Z' },
-      c: []
+      c: [],
+      label: 'Search in shopping list',
+      text: ''
     }
   },
   computed: {

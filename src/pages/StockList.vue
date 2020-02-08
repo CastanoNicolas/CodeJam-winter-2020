@@ -1,17 +1,22 @@
 <template>
   <q-page>
     <Search :label="label" :text="text"/>
+    <StockItem/>
+    <StockItem/>
+    <StockItem/>
   </q-page>
 </template>
 
 <script>
 import Search from 'components/Search'
+import StockItem from 'components/StockItem'
 import { listManagerMixin } from '../mixins/listManagerMixin'
 
 export default {
   name: 'StockList',
   components: {
-    Search
+    Search,
+    StockItem
   },
   data () {
     return {
