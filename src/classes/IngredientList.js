@@ -3,9 +3,9 @@ export class IngredientList {
     this.ingredientList = []
   }
   addIngredient (ingredient) {
-    this.ingredient[ingredient.name] = ingredient
+    this.ingredientList[ingredient.name] = ingredient
   }
   removeIngredient (ingredient) {
-    delete this.ingredient[ingredient.name]
+    delete this.ingredientList[ingredient.name]
   }
 }
