@@ -4,7 +4,13 @@
       <q-item-label class="text-weight-medium">{{recipeItem.name}}</q-item-label>
     </q-item-section>
     <div class="q-pa-md q-gutter-md col">
-      <q-badge outline color="primary" label="Outline" />
+      <q-badge
+        v-for="(cat, k) in recipeItem.categories"
+        :key="k"
+        outline
+        color="primary">
+          {{cat}}
+        </q-badge>
     </div>
   </q-item>
 
@@ -14,11 +20,7 @@
 
 export default {
   name: 'RecipeItem',
-  props: ['recipeItem'],
-  created () {
-    console.log('recettes gf :')
-    console.log(this.recipeItem)
-  }
+  props: ['recipeItem']
 }
 </script>
 
