@@ -6,6 +6,9 @@
         :name="name"/>
       <StockItem
         :name="name"/>
+      <q-page-sticky position="bottom-right" :offset="[20, 20]">
+        <q-btn round color="primary" icon="add"/>
+      </q-page-sticky>
     </q-list>
   </q-page>
 </template>
