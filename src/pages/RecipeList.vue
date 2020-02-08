@@ -3,14 +3,8 @@
     <Search :label="label" :text="text"/>
 
     <q-list class="q-pt-md">
-      <q-item class="column" v-for="recipe in rl" :key="recipe.name">
-          <q-item-section class="q-pl-md col">
-            <q-item-label class="text-weight-medium">{{recipe.name}}</q-item-label>
-          </q-item-section>
-          <div class="q-pa-md q-gutter-md col">
-            <q-badge outline color="primary" label="Outline" />
-          </div>
-        </q-item>
+      <RecipeItem v-for="recipe in recipeList" :key="recipe.name" :recipeItem="recipe">
+      </RecipeItem>
     </q-list>
 
     <q-page-sticky position="bottom-right" :offset="[20, 20]">
@@ -21,7 +15,7 @@
 
 <script>
 import Search from 'components/Search'
-// import RecipeItem from 'components/RecipeItem'
+import RecipeItem from 'components/RecipeItem'
 import { listManagerMixin } from '../mixins/listManagerMixin'
 import { Recipe } from '../classes/Recipe'
 import { Ingredient } from '../classes/Ingredient'
@@ -29,8 +23,8 @@ import { Ingredient } from '../classes/Ingredient'
 export default {
   name: 'RecipeList',
   components: {
-    Search
-    // RecipeItem
+    Search,
+    RecipeItem
   },
   data () {
     return {
@@ -53,13 +47,6 @@ export default {
     // variables actualiser si changement (observables/observeur en un)
     recipeList () {
       return this.$store.getters.getRecipeList
-    },
-    rl () {
-      console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH')
-      console.log(JSON.stringify(this.$store.state.mainModule.recipeList.recipeList))
-      console.log(this.$store.state.mainModule.recipeList.recipeList)
-      // console.log(this.recipeList.recipeList['recipe test'])
-      return this.$store.state.mainModule.recipeList.recipeList
     }
   },
   methods: {

@@ -1,7 +1,7 @@
-import { RecipeList } from '../classes/RecipeList'
 import { StockList } from '../classes/StockList'
 import { ShoppingList } from '../classes/ShoppingList'
 import { IngredientList } from '../classes/IngredientList'
+import { RecipeList } from 'src/classes/RecipeList'
 
 export default {
   state: {
@@ -48,16 +48,16 @@ export default {
   },
   getters: {
     getIngredientList (state) {
-      return state.ingredientList
+      return state.ingredientList.ingredientList
     },
     getShoppingList (state) {
-      return state.shoppingList
+      return state.shoppingList.ingredientList
     },
     getStockList (state) {
-      return state.stockList
+      return state.stockList.ingredientList
     },
     getRecipeList (state) {
-      return state.recipeList
+      return state.recipeList.recipeList
     }
   }
 }

@@ -1,11 +1,11 @@
 <template>
   <q-item class="column">
     <q-item-section class="q-pl-md col">
-      <q-item-label class="text-weight-medium">{{recipeItem}}</q-item-label>
+      <q-item-label class="text-weight-medium">{{recipeItem.name}}</q-item-label>
     </q-item-section>
     <div class="q-pa-md q-gutter-md col">
       <q-badge outline color="primary" label="Outline" />
-    </div>xx
+    </div>
   </q-item>
 
 </template>
