@@ -1,21 +1,23 @@
 <template>
   <q-page>
-    <q-input class="q-pa-md" outlined v-model="text" label="Label">
-      <template v-slot:append>
-        <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
-        <q-icon name="search" />
-      </template>
-
-      <template v-slot:hint>
-        Field hint
-      </template>
-    </q-input>
+    <Search :label="label"/>
   </q-page>
 </template>
 
 <script>
+import Search from 'components/Search'
+
 export default {
-  name: 'StockList'
+  name: 'StockList',
+  components: {
+    Search
+  },
+  data () {
+    return {
+      label: 'Search in stock',
+      text: ''
+    }
+  }
 }
 </script>
 

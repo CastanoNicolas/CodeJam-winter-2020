@@ -13,7 +13,6 @@
 export default {
   name: 'NavigationMenu',
   props: {
-    activeTab: String
   }
 }
 </script>
