@@ -1,12 +1,18 @@
 <template>
   <q-page>
     <Search :label="label" :text="text"/>
-    <!-- <q-list>
-      <StockItem
-        :name="name"/>
-      <StockItem
-        :name="name"/>
-    </q-list> -->
+
+    <q-list class="q-pt-md">
+      <q-item class="column" v-for="recipe in rl" :key="recipe.name">
+          <q-item-section class="q-pl-md col">
+            <q-item-label class="text-weight-medium">{{recipe.name}}</q-item-label>
+          </q-item-section>
+          <div class="q-pa-md q-gutter-md col">
+            <q-badge outline color="primary" label="Outline" />
+          </div>
+        </q-item>
+    </q-list>
+
     <q-page-sticky position="bottom-right" :offset="[20, 20]">
       <q-btn round color="primary" icon="add"/>
     </q-page-sticky>
@@ -15,19 +21,22 @@
 
 <script>
 import Search from 'components/Search'
+// import RecipeItem from 'components/RecipeItem'
 import { listManagerMixin } from '../mixins/listManagerMixin'
 import { Recipe } from '../classes/Recipe'
 import { Ingredient } from '../classes/Ingredient'
 
 export default {
-  name: 'RecipeListList',
+  name: 'RecipeList',
   components: {
     Search
+    // RecipeItem
   },
   data () {
     return {
       label: 'Search among recipes',
-      text: ''
+      text: '',
+      name: 'Lala aux fraises'
     }
   },
   created () {
@@ -39,14 +48,18 @@ export default {
 
     this.addRecipeToRecipeList(newRecip)
     this.addRecipeToRecipeList(newRecip2)
-
-    console.log('recettes :')
-    console.log(this.recipeList)
   },
   computed: {
     // variables actualiser si changement (observables/observeur en un)
     recipeList () {
       return this.$store.getters.getRecipeList
+    },
+    rl () {
+      console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH')
+      console.log(JSON.stringify(this.$store.state.mainModule.recipeList.recipeList))
+      console.log(this.$store.state.mainModule.recipeList.recipeList)
+      // console.log(this.recipeList.recipeList['recipe test'])
+      return this.$store.state.mainModule.recipeList.recipeList
     }
   },
   methods: {
