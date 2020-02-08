@@ -25,7 +25,9 @@ export class StockList {
     if (typeof this.ingredientList[recipe.name] === 'undefined') {
       this.recipeList[recipe.name] = []
     }
-    this.recipeList[recipe.name].push({ ...recipe, expiryDate: Date.now() + recipe.dayBeforeStale })
+    for (let index = 0; index < quantity; index++) {
+      this.recipeList[recipe.name].push({ ...recipe, expiryDate: Date.now() + recipe.dayBeforeStale })
+    }
   }
   removeRecipe (recipe, quantity) {
     for (let index = 0; index < quantity; index++) {
