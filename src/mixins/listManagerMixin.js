@@ -13,6 +13,9 @@ export const listManagerMixin = {
         quantity
       })
       this.$store.commit('removeIngredientFromShoppingList', { ingredient, quantity })
+    },
+    removeIngredientFromStockList (ingredient, quantity) {
+      this.$store.commit('removeIngredientFromStockList', { ingredient, quantity })
     }
   }
 }
