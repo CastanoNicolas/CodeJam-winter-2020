@@ -1,7 +1,6 @@
 <template>
   <div class="fixed-center text-center">
-    RecipeList {{ test }}
-    <q-btn color="white" text-color="black" label="Standard" @click="testmet()" />
+    RecipeList
   </div>
 </template>
 
@@ -17,7 +16,7 @@ export default {
     }
   },
   created () {
-    // lancement apres cretion de la page
+    console.log('Page : RecipeList')
   },
   computed: {
     // variables actualiser si changement (observables/observeur en un)
