@@ -34,6 +34,12 @@ export default {
     },
     removeRecipeFromRecipeList (state, recipe) {
       state.recipeList.removeRecipe(recipe)
+    },
+    addRecipeToStockList (state, recipe) {
+
+    },
+    removeRecipeToStockList (state, recipe) {
+
     }
 
   },
