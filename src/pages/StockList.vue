@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <Search :label="label"/>
+    <Search :label="label" :text="text"/>
   </q-page>
 </template>
 
