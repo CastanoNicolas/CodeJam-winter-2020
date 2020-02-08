@@ -1,19 +1,33 @@
 <template>
-  <div class="fixed-center text-center">
-    RecipeList
-  </div>
+  <q-page>
+    <Search :label="label" :text="text"/>
+    <!-- <q-list>
+      <StockItem
+        :name="name"/>
+      <StockItem
+        :name="name"/>
+    </q-list> -->
+    <q-page-sticky position="bottom-right" :offset="[20, 20]">
+      <q-btn round color="primary" icon="add"/>
+    </q-page-sticky>
+  </q-page>
 </template>
 
 <script>
+import Search from 'components/Search'
 import { listManagerMixin } from '../mixins/listManagerMixin'
 import { Recipe } from '../classes/Recipe'
 import { Ingredient } from '../classes/Ingredient'
 
 export default {
   name: 'RecipeListList',
+  components: {
+    Search
+  },
   data () {
     return {
-      // variables constantes
+      label: 'Search among recipes',
+      text: ''
     }
   },
   created () {
