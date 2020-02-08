@@ -1,29 +1,40 @@
 <template>
-  <div class="fixed-center text-center">
-    ShoppingList {{test}}
-    <q-btn color="white" text-color="black" label="Standard" @click="testmet()" />
-  </div>
+  <q-page>
+    <Search :label="label" :text="text"/>
+    <q-list>
+      <ShoppingItem
+        :name="name"/>
+      <ShoppingItem
+        :name="name"/>
+    </q-list>
+    <q-page-sticky position="bottom-right" :offset="[20, 20]">
+      <q-btn round color="primary" icon="add"/>
+    </q-page-sticky>
+  </q-page>
 </template>
 
 <script>
 import { listManagerMixin } from '../mixins/listManagerMixin'
+import Search from 'components/Search'
+import ShoppingItem from 'components/ShoppingItem'
 import { ShoppingList } from '../classes/ShoppingList'
 import { Ingredient } from '../classes/Ingredient'
 
 export default {
   name: 'IngredientList',
+  components: {
+    Search,
+    ShoppingItem
+  },
   data () {
     return {
-      a: { blub: 'A', blib: '' },
-      b: { blub: 'B', blib: 'Z' },
-      c: [],
+      label: 'Search in shopping list',
+      text: '',
+      name: 'lili',
       shoppingList: 'init'
     }
   },
   computed: {
-    test () {
-      return { blub: 'A', blib: '', ...this.b }
-    },
     ingredientList () {
       return this.$store.getters.getShoppingList
     }

@@ -1,16 +1,29 @@
 <template>
-  <div class="fixed-center text-center">
-    ingredientList
-  </div>
+   <q-page>
+    <Search :label="label" :text="text"/>
+    <q-page-sticky position="bottom-right" :offset="[20, 20]">
+      <q-btn round color="primary" icon="add"/>
+    </q-page-sticky>
+  </q-page>
 </template>
 
 <script>
+import Search from 'components/Search'
 import { listManagerMixin } from '../mixins/listManagerMixin'
 import { IngredientList } from '../classes/IngredientList'
 import { Ingredient } from '../classes/Ingredient'
 
 export default {
   name: 'IngredientList',
+  components: {
+    Search
+  },
+  data () {
+    return {
+      label: 'Search in ingredients',
+      text: ''
+    }
+  },
   computed: {
     ingredientList () {
       return this.$store.getters.getIngredientList
