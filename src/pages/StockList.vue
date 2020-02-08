@@ -69,6 +69,16 @@ export default {
     stocklist.removeIngredient(carrote, 7)
     console.log('shopping list apres enlevage de 7 carrotes')
     console.log(stocklist)
+
+    stocklist.addIngredient(carrote, 6)
+    console.log('shopping lsit apres ajout de 5 carrotes')
+    stocklist.addIngredient(carrote, 6)
+    console.log('shopping lsit apres ajout de 5 carrotes')
+
+    stocklist.removeIngredient(carrote, 10)
+    console.log('shopping lsit apres enlevage de 10 carrotes')
+    stocklist.removeIngredient(carrote, 10)
+    console.log('shopping lsit apres enlevage de 10 carrotes')
   }
 }
 </script>
