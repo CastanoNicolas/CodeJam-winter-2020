@@ -1,4 +1,4 @@
-
+// A CHANGER POUR LE NOUVEAU FORMAT DES STOCKS
 export const listManagerMixin = {
   methods: {
     addIngredientToShoppingList (ingredient, quantity) {
