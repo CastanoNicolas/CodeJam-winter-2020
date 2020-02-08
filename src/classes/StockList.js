@@ -1,8 +1,8 @@
 
 export class StockList {
   constructor () {
-    this.ingredientList = []
-    this.recipeList = []
+    this.ingredientList = {}
+    this.recipeList = {}
   }
   addIngredient (ingredient, quantity) {
     // for (let index = 0; index < quantity; index++) {
