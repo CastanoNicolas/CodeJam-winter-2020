@@ -5,13 +5,6 @@ export class StockList {
     this.recipeList = []
   }
   addIngredient (ingredient, quantity) {
-    let exist = this.ingredientExist(ingredient)
-    if (exist) {
-      exist.quantity += quantity
-    } else {
-      this.ingredientList[ingredient.name] = { ingredient: { ...ingredient, expiryDate: Date.now + ingredient.dayBeforeStale }, quantity: quantity }
-    }
-
     // for (let index = 0; index < quantity; index++) {
     //   // let object = new Ingredient(ingredient.name, ingredient.dayBeforeStale, Date.now() + ingredient.dayBeforeStale, ingredient.unity, ingredient.categories)
     //   /*
@@ -28,6 +21,16 @@ export class StockList {
 
     //   this.ingredientList[ingredient.name].push({ ...ingredient, expiryDate: expirydateValue })
     // }
+    if (!this.ingredientList[ingredient.name]) {
+      this.ingredientList[ingredient.name] = []
+    }
+
+    let exist = this.ingredientExist(ingredient)
+    if (exist) {
+      exist.quantity += quantity
+    } else {
+      this.ingredientList[ingredient.name].push({ ingredient: { ...ingredient, expiryDate: Date.now + ingredient.dayBeforeStale }, quantity: quantity })
+    }
   }
   removeIngredient (ingredient, quantity) {
     // if (this.ingredientList[ingredient.name].length <= quantity) {
@@ -72,7 +75,8 @@ export class StockList {
     }
   }
   ingredientExist (ingredient) {
-    return this.ingredientList.find((elem) => {
+    return this.ingredientList[ingredient.name].find((elem) => {
+      // remplacer par for ... in
       if (elem.name === ingredient.name &&
          elem.dayBeforeStale === ingredient.dayBeforeStale &&
          elem.expiryDate === ingredient.expiryDate &&
@@ -86,6 +90,7 @@ export class StockList {
   }
   recipeExist (recipe) {
     return this.recipeList.find((elem) => {
+      // remplacer par for ... in
       if (elem.name === recipe.name &&
          elem.dayBeforeStale === recipe.dayBeforeStale &&
          elem.expiryDate === recipe.expiryDate &&
