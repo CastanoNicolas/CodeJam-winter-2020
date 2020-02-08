@@ -13,7 +13,7 @@ export default {
   name: 'IngredientList',
   computed: {
     ingredientList () {
-      return this.$store.getters.mainModule.getIngredientList
+      return this.$store.getters.getIngredientList
     }
   },
   methods: {

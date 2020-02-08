@@ -24,13 +24,11 @@ export default {
   computed: {
 
     ingredientList () {
-      return this.$store.getters.mainModule.getShoppingList
+      return this.$store.getters.getShoppingList
     }
   },
   methods: {
-    removeIngredientFromStockList (ingredient, quantity) {
-      this.$store.commit('removeIngredientFromStockList', { ingredient, quantity })
-    }
+
   },
   mixins: [listManagerMixin],
   created () {
