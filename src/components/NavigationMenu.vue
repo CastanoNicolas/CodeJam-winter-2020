@@ -1,7 +1,7 @@
 <template>
   <q-footer>
     <q-tabs>
-      <q-route-tab class="tab" icon="kitchen" to="/StockList">Stock</q-route-tab>
+      <q-route-tab class="tab" icon="kitchen" to="/">Stock</q-route-tab>
       <q-route-tab class="tab" icon="local_grocery_store" to="/ShoppingList">Shopping</q-route-tab>
       <q-route-tab class="tab" icon="menu_book" to="/RecipeList">Recipes</q-route-tab>
       <q-route-tab class="tab" icon="fas fa-carrot" to="/IngredientList">Ingredients</q-route-tab>
