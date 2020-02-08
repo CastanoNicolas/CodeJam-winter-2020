@@ -7,17 +7,14 @@
 
       <q-item-section side>
         <q-input class="input_style" dense rounded standout v-model="itemNumber">
-          <!-- :rules="[
-          val => val > 0 && val < 1000 || 'Please number only'
-          ]"> -->
-            <template v-slot:prepend>
-              <q-icon name="remove" />
-            </template>
-            <template v-slot:append>
-              <q-icon name="add" @click="text = ''" class="cursor-pointer" />
-            </template>
-          </q-input>
-        </q-item-section>
+          <template v-slot:prepend>
+            <q-icon name="remove" />
+          </template>
+          <template v-slot:append>
+            <q-icon name="add" @click="text = ''" class="cursor-pointer" />
+          </template>
+        </q-input>
+      </q-item-section>
     </template>
 
     <q-list>
