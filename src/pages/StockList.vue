@@ -1,11 +1,21 @@
 <template>
   <q-page>
     <Search :label="label" :text="text"/>
+    <q-list>
+      <StockItem
+        :name="name"/>
+      <StockItem
+        :name="name"/>
+    </q-list>
+    <q-page-sticky position="bottom-right" :offset="[20, 20]">
+      <q-btn round color="primary" icon="add"/>
+    </q-page-sticky>
   </q-page>
 </template>
 
 <script>
 import Search from 'components/Search'
+import StockItem from 'components/StockItem'
 import { listManagerMixin } from '../mixins/listManagerMixin'
 import { StockList } from '../classes/StockList'
 import { Ingredient } from '../classes/Ingredient'
@@ -13,18 +23,19 @@ import { Ingredient } from '../classes/Ingredient'
 export default {
   name: 'StockList',
   components: {
-    Search
+    Search,
+    StockItem
   },
   data () {
     return {
       label: 'Search in stock',
-      text: ''
+      text: '',
+      name: 'lala'
     }
   },
   computed: {
-
     ingredientList () {
-      return this.$store.getters.getShoppingList
+      return this.$store.getters.getStockList
     }
   },
   methods: {
