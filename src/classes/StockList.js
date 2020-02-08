@@ -5,21 +5,38 @@ export class StockList {
     this.recipeList = []
   }
   addIngredient (ingredient, quantity) {
-    for (let index = 0; index < quantity; index++) {
-      // let object = new Ingredient(ingredient.name, ingredient.dayBeforeStale, Date.now() + ingredient.dayBeforeStale, ingredient.unity, ingredient.categories)
-      /*
-      JE CROIS QUE CA MARCHE PAS ICI !!!
-      */
-      if (typeof this.ingredientList[ingredient.name] === 'undefined') {
-        this.ingredientList[ingredient.name] = []
+    let exist = this.ingredientList.find((elem) => {
+      if (elem.name === ingredient.name &&
+         elem.dayBeforeStale === ingredient.dayBeforeStale &&
+         elem.expiryDate === ingredient.expiryDate &&
+         elem.unity === ingredient.unity &&
+         elem.categories === ingredient.categories) {
+        return true
+      } else {
+        return false
       }
+    })
+    if (exist) {
+      exist.quantity += quantity
+    } else {
+      this.ingredientList[ingredient.name] = { ...ingredient, expiryDate: Date.now + ingredient.dayBeforeStale }
+    }
 
-      var today = new Date()
-      var expirydateValue = new Date()
-      var newDate = today.getDate() + ingredient.dayBeforeStale
-      expirydateValue.setDate(newDate)
+    // for (let index = 0; index < quantity; index++) {
+    //   // let object = new Ingredient(ingredient.name, ingredient.dayBeforeStale, Date.now() + ingredient.dayBeforeStale, ingredient.unity, ingredient.categories)
+    //   /*
+    //   JE CROIS QUE CA MARCHE PAS ICI !!!
+    //   */
+    //   if (typeof this.ingredientList[ingredient.name] === 'undefined') {
+    //     this.ingredientList[ingredient.name] = []
+    //   }
 
-      this.ingredientList[ingredient.name].push({ ...ingredient, expiryDate: expirydateValue })
+    //   var today = new Date()
+    //   var expirydateValue = new Date()
+    //   var newDate = today.getDate() + ingredient.dayBeforeStale
+    //   expirydateValue.setDate(newDate)
+
+    //   this.ingredientList[ingredient.name].push({ ...ingredient, expiryDate: expirydateValue })
     }
   }
   removeIngredient (ingredient, quantity) {

@@ -24,7 +24,7 @@ export default {
   computed: {
 
     ingredientList () {
-      return this.$store.getters.getShoppingList
+      return this.$store.getters.getStockList
     }
   },
   methods: {
