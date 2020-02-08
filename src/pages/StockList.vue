@@ -6,6 +6,7 @@
 
 <script>
 import Search from 'components/Search'
+import { listManagerMixin } from '../mixins/listManagerMixin'
 
 export default {
   name: 'StockList',
@@ -17,7 +18,19 @@ export default {
       label: 'Search in stock',
       text: ''
     }
-  }
+  },
+  computed: {
+
+    ingredientList () {
+      return this.$store.getters.mainModule.getShoppingList
+    }
+  },
+  methods: {
+    removeIngredientFromStockList (ingredient, quantity) {
+      this.$store.commit('removeIngredientFromStockList', { ingredient, quantity })
+    }
+  },
+  mixins: [listManagerMixin]
 }
 </script>
 
