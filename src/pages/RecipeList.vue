@@ -31,6 +31,15 @@ export default {
     addRecipeToRecipeList (ingredientList, quantityList, description, categories) {
       let newRecipe = new Recipe(ingredientList, quantityList, description, categories)
       this.$store.commit('addRecipeToRecipeList', newRecipe)
+    },
+    addIngredientFromRecipeToShoppingList () {
+
+    },
+    removeIngredientFromRecipeFromStockList () {
+
+    },
+    addRecipeToStockList () {
+
     }
   },
   mixins: [listManagerMixin]
