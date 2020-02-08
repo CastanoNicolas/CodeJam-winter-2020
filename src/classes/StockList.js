@@ -55,12 +55,15 @@ export class StockList {
     // for (let index = 0; index < quantity; index++) {
     //   this.recipeList[recipe.name].push({ ...recipe, expiryDate: Date.now() + recipe.dayBeforeStale })
     // }
-    let exist = this.recipeExist(recipe)
-    if (exist) {
-      exist.quantity += quantity
-    } else {
-      this.recipeList[recipe.name] = { recipe: { ...recipe }, quantity: quantity }
-    }
+
+    // let exist = this.recipeExist(recipe)
+    // if (exist) {
+    //   exist.quantity += quantity
+    // } else {
+    //   this.recipeList[recipe.name] = { recipe: { ...recipe, expiryDate: Date.now() + recipe.dayBeforeStale }, quantity: quantity }
+    // }
+
+    this.recipeList[recipe.name].push({ recipe: { ...recipe, expiryDate: Date.now() + recipe.dayBeforeStale }, quantity: quantity })
   }
   removeRecipe (recipe, quantity) {
     // for (let index = 0; index < quantity; index++) {
