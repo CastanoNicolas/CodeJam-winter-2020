@@ -7,6 +7,7 @@
 <script>
 import { listManagerMixin } from '../mixins/listManagerMixin'
 import { Recipe } from '../classes/Recipe'
+import { Ingredient } from '../classes/Ingredient'
 
 export default {
   name: 'RecipeListList',
@@ -17,20 +18,29 @@ export default {
   },
   created () {
     console.log('Page : RecipeList')
+
+    const newRecip = new Recipe('recipe test', 2, null, [new Ingredient('carotte', 4, null, 'litre', 'legumes'), new Ingredient('dolipranne', 15, null, 'Kg', 'medocs')], [3, 1], 'des carottes et un dolipranne', 'repas bizarre')
+
+    const newRecip2 = new Recipe('recipe encore', 2, null, [new Ingredient('blub', 1, null, 'monument', 'legumes'), new Ingredient('dolipranne', 15, null, 'Kg', 'medocs')], [3, 1], 'des trucs et des blip bloup', 'repas equilibrer mais vegan')
+
+    this.addRecipeToRecipeList(newRecip)
+    this.addRecipeToRecipeList(newRecip2)
+
+    console.log('recettes :')
+    console.log(this.recipeList)
   },
   computed: {
     // variables actualiser si changement (observables/observeur en un)
-    ingredientList () {
-      return this.$store.getters.mainModule.getRecipeList
+    recipeList () {
+      return this.$store.getters.getRecipeList
     }
   },
   methods: {
     removeRecipeFromRecipeList (recipe) {
       this.$store.commit('removeRecipeFromRecipeList', recipe)
     },
-    addRecipeToRecipeList (ingredientList, quantityList, description, categories) {
-      let newRecipe = new Recipe(ingredientList, quantityList, description, categories)
-      this.$store.commit('addRecipeToRecipeList', newRecipe)
+    addRecipeToRecipeList (recipe) {
+      this.$store.commit('addRecipeToRecipeList', recipe)
     },
     addIngredientFromRecipeToShoppingList (recipe) {
       recipe.ingredientList.forEach(function (ingredient, index, array) {
@@ -58,7 +68,7 @@ export default {
       })
     },
     enoughIngredient (ingredient, quantity) {
-      return this.$store.getters.mainModule.getStockList().find((elem) => {
+      return this.$store.getters.getStockList().find((elem) => {
         return elem.name === ingredient.name
       }).quantity >= quantity
     }
