@@ -1,9 +1,12 @@
 <template>
   <q-page>
     <Search :label="label" :text="text"/>
-    <StockItem/>
-    <StockItem/>
-    <StockItem/>
+    <q-list>
+      <StockItem
+        :name="name"/>
+      <StockItem
+        :name="name"/>
+    </q-list>
   </q-page>
 </template>
 
@@ -21,13 +24,13 @@ export default {
   data () {
     return {
       label: 'Search in stock',
-      text: ''
+      text: '',
+      name: 'lala'
     }
   },
   computed: {
-
     ingredientList () {
-      return this.$store.getters.mainModule.getShoppingList
+      return this.$store.getters.mainModule.getStockList
     }
   },
   methods: {
