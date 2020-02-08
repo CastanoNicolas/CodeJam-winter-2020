@@ -38,16 +38,23 @@ export default {
       })
     },
     removeIngredientFromRecipeFromStockList (recipe) {
-      recipe.ingredientList.forEach(
-        (ingredient, index, array) => {
+      recipe.ingredientList.every( // Pour pouvoir break out with return false à la place d'un foreach
+        (ingredient, index) => {
           if (this.enoughIngredient(ingredient)) {
-
+            this.removeIngredientFromStockList(ingredient, recipe.quantityList[index])
+            return true
+          } else {
+            // PROMPT MESSAGE NOT ENOUGH INGREDIENT, DO ?
+            return false
           }
         }
       )
     },
-    addRecipeToStockList (recipe) {
-      // with expiry date
+    addRecipeToStockList (recipe, quantity) {
+      this.$store.commit('addRecipeToStockList', {
+        recipe,
+        quantity
+      })
     },
     enoughIngredient (ingredient, quantity) {
       return this.$store.getters.mainModule.getStockList().find((elem) => {
