@@ -25,7 +25,7 @@ export default {
       return { blub: 'A', blib: '', ...this.b }
     },
     ingredientList () {
-      return this.$store.getters.mainModule.getShoppingList
+      return this.$store.getters.getShoppingList
     }
   },
   methods: {
