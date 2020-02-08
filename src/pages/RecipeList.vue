@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <Search :label="label" :text="text"/>
+    <Search :label="labelSearch" :text="textSearch"/>
 
     <q-list class="q-pt-md">
       <RecipeItem v-for="recipe in recipeList" :key="recipe.name" :recipeItem="recipe">
@@ -28,17 +28,16 @@ export default {
   },
   data () {
     return {
-      label: 'Search among recipes',
-      text: '',
-      name: 'Lala aux fraises'
+      labelSearch: 'Search among recipes',
+      textSearch: ''
     }
   },
   created () {
     console.log('Page : RecipeList')
 
-    const newRecip = new Recipe('recipe test', 2, null, [new Ingredient('carotte', 4, null, 'litre', 'legumes'), new Ingredient('dolipranne', 15, null, 'Kg', 'medocs')], [3, 1], 'des carottes et un dolipranne', 'repas bizarre')
+    const newRecip = new Recipe('recipe test', 2, null, [new Ingredient('carotte', 4, null, 'litre', 'legumes'), new Ingredient('dolipranne', 15, null, 'Kg', 'medocs')], [3, 1], 'des carottes et un dolipranne', ['repas bizarre', 'bleu'])
 
-    const newRecip2 = new Recipe('recipe encore', 2, null, [new Ingredient('blub', 1, null, 'monument', 'legumes'), new Ingredient('dolipranne', 15, null, 'Kg', 'medocs')], [3, 1], 'des trucs et des blip bloup', 'repas equilibrer mais vegan')
+    const newRecip2 = new Recipe('recipe encore', 2, null, [new Ingredient('blub', 1, null, 'monument', 'legumes'), new Ingredient('dolipranne', 15, null, 'Kg', 'medocs')], [3, 1], 'des trucs et des blip bloup', ['repas equilibrer mais vegan'])
 
     this.addRecipeToRecipeList(newRecip)
     this.addRecipeToRecipeList(newRecip2)
