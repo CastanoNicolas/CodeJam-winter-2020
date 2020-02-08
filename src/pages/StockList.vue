@@ -26,9 +26,7 @@ export default {
     }
   },
   methods: {
-    removeIngredientFromStockList (ingredient, quantity) {
-      this.$store.commit('removeIngredientFromStockList', { ingredient, quantity })
-    }
+
   },
   mixins: [listManagerMixin]
 }
