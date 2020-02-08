@@ -5,21 +5,11 @@ export class StockList {
     this.recipeList = []
   }
   addIngredient (ingredient, quantity) {
-    let exist = this.ingredientList.find((elem) => {
-      if (elem.name === ingredient.name &&
-         elem.dayBeforeStale === ingredient.dayBeforeStale &&
-         elem.expiryDate === ingredient.expiryDate &&
-         elem.unity === ingredient.unity &&
-         elem.categories === ingredient.categories) {
-        return true
-      } else {
-        return false
-      }
-    })
+    let exist = this.ingredientExist(ingredient)
     if (exist) {
       exist.quantity += quantity
     } else {
-      this.ingredientList[ingredient.name] = { ...ingredient, expiryDate: Date.now + ingredient.dayBeforeStale }
+      this.ingredientList[ingredient.name] = { ingredient: { ...ingredient, expiryDate: Date.now + ingredient.dayBeforeStale }, quantity: quantity }
     }
 
     // for (let index = 0; index < quantity; index++) {
@@ -37,28 +27,76 @@ export class StockList {
     //   expirydateValue.setDate(newDate)
 
     //   this.ingredientList[ingredient.name].push({ ...ingredient, expiryDate: expirydateValue })
-    }
+    // }
   }
   removeIngredient (ingredient, quantity) {
-    if (this.ingredientList[ingredient.name].length <= quantity) {
-      delete this.ingredientList[ingredient.name]
-    } else {
-      for (let index = 0; index < quantity; index++) {
-        this.ingredientList[ingredient.name].shift()
+    // if (this.ingredientList[ingredient.name].length <= quantity) {
+    //   delete this.ingredientList[ingredient.name]
+    // } else {
+    //   for (let index = 0; index < quantity; index++) {
+    //     this.ingredientList[ingredient.name].shift()
+    //   }
+    // }
+    let exist = this.ingredientExist(ingredient)
+    if (exist) {
+      exist.quantity -= quantity
+      if (exist.quantity < 0) {
+        delete this.ingredientList[exist.name]
       }
     }
   }
   addRecipe (recipe, quantity) {
-    if (typeof this.ingredientList[recipe.name] === 'undefined') {
-      this.recipeList[recipe.name] = []
-    }
-    for (let index = 0; index < quantity; index++) {
-      this.recipeList[recipe.name].push({ ...recipe, expiryDate: Date.now() + recipe.dayBeforeStale })
+    // if (typeof this.ingredientList[recipe.name] === 'undefined') {
+    //   this.recipeList[recipe.name] = []
+    // }
+    // for (let index = 0; index < quantity; index++) {
+    //   this.recipeList[recipe.name].push({ ...recipe, expiryDate: Date.now() + recipe.dayBeforeStale })
+    // }
+    let exist = this.recipeExist(recipe)
+    if (exist) {
+      exist.quantity += quantity
+    } else {
+      this.recipeList[recipe.name] = { recipe: { ...recipe }, quantity: quantity }
     }
   }
   removeRecipe (recipe, quantity) {
-    for (let index = 0; index < quantity; index++) {
-      this.recipeList[recipe.name].shift()
+    // for (let index = 0; index < quantity; index++) {
+    //   this.recipeList[recipe.name].shift()
+    // }
+    let exist = this.recipeExist(recipe)
+    if (exist) {
+      exist.quantity -= quantity
+      if (exist.quantity <= 0) {
+        delete this.recipeList[recipe.name]
+      }
     }
+  }
+  ingredientExist (ingredient) {
+    return this.ingredientList.find((elem) => {
+      if (elem.name === ingredient.name &&
+         elem.dayBeforeStale === ingredient.dayBeforeStale &&
+         elem.expiryDate === ingredient.expiryDate &&
+         elem.unity === ingredient.unity &&
+         elem.categories === ingredient.categories) {
+        return true
+      } else {
+        return false
+      }
+    })
+  }
+  recipeExist (recipe) {
+    return this.recipeList.find((elem) => {
+      if (elem.name === recipe.name &&
+         elem.dayBeforeStale === recipe.dayBeforeStale &&
+         elem.expiryDate === recipe.expiryDate &&
+         elem.ingredientList === recipe.ingredientList &&
+         elem.quantityList === recipe.quantityList &&
+         elem.description === recipe.description &&
+         elem.categories === recipe.categories) {
+        return true
+      } else {
+        return false
+      }
+    })
   }
 }
