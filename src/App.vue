@@ -20,12 +20,14 @@ export default {
       // var jsObject = new Ingr edientList()
       // jsObject.ingredientLi st = JSON.parse(defaultIngredientList)
       this.$store.commit('setIngredientList', JSON.parse(defaultIngredientList))
-      // this.writeFile('ingredientList.json', JSON.parse(defaultIngredientList))
+      // this.writeFil e('ingredientList.json', JSON.parse(defaultIngredientList))
     },
     checkIngredientList () {
       try {
         this.readFile('ingredientList.json')
           .then(data => {
+            console.log('DATA INgredient')
+            console.log('in promise resolution')
             if (data === '') {
               console.log('ingredientList data NOT found')
               this.initIngredientList()
@@ -52,6 +54,7 @@ export default {
         this.readFile('shoppingList.json')
           .then(data => {
             if (data === '') {
+              console.log('DATA Shopping')
               console.log('shoppingList data NOT found')
               this.initShoppingList()
             } else {
@@ -78,8 +81,7 @@ export default {
       try {
         this.readFile('stockList.json')
           .then(data => {
-            console.log('DATA')
-            console.log(JSON.parse(data))
+            console.log('DATA Stock')
             if (data === '') {
               console.log('stockList data NOT found')
               this.initStockList()
@@ -104,8 +106,9 @@ export default {
     checkRecipeList () {
       try {
         this.readFile('recipeList.json')
-          .then(data => {
+          .then(data => { //
             if (data === '') {
+              console.log('DATA recipe')
               console.log('recipeList data NOT found')
               this.initRecipeList()
             } else {
@@ -122,20 +125,24 @@ export default {
     }
   },
   created () {
+    console.log('allalalalalal')
     // this.initStockList()
     // this.writeFile('stockList.json',  this.$store.state.mainModule.stockList)
 
     // Ini tialisation de la liste d'ingredients
     this.checkIngredientList()
-
+    console.log(this.$store.state.mainModule.ingredientList)
     // Initialisation de la liste de recettes
     this.checkShoppingList()
+    console.log(this.$store.state.mainModule.ShoppingList)
 
     // Initialisation de la liste de stocks
     this.checkStockList()
+    console.log(this.$store.state.mainModule.stockList)
 
     // Initialisation de la liste de courses
     this.checkRecipeList()
+    console.log(this.$store.state.mainModule.recipeList)
   }
 }
 </script>
