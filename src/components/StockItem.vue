@@ -3,6 +3,24 @@
     <template v-slot:header>
       <q-item-section>
         <q-item-label class="text-weight-medium">{{stockItemChild[0].ingredient.name}}</q-item-label>
+        <div class="q-gutter-md col" v-if="stockItemChild[0].ingredient.description">
+          <q-badge
+            v-for="(cat, k) in stockItemChild[0].ingredient.categories"
+            :key="k"
+            outline
+            color="secondary">
+              {{cat}}
+            </q-badge>
+        </div>
+        <div class="q-gutter-md col" v-else>
+          <q-badge
+            v-for="(cat, k) in stockItemChild[0].ingredient.categories"
+            :key="k"
+            outline
+            color="primary">
+              {{cat}}
+            </q-badge>
+        </div>
       </q-item-section>
 
       <q-item-section side v-on:click.stop>

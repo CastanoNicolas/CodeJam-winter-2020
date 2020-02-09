@@ -145,8 +145,6 @@ export default {
     },
     removeShopping () {
       for (const elem in this.recipeInView.ingredientList) {
-        console.log(this.recipeInView.ingredientList[elem])
-        console.log(this.recipeInView.quantityList[elem])
         var ing = { 'ingredient': this.recipeInView.ingredientList[elem], 'quantity': this.quantity * this.recipeInView.quantityList[elem] }
         this.$store.commit('removeIngredientFromStockList', ing)
       }
