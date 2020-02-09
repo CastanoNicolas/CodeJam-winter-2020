@@ -23,7 +23,7 @@
         <q-item-section side class="input_style">
           <q-input class="input_style" dense rounded standout type="number" v-model="ensemble.quantity" @keyup="$emit('update:stockItem', stockItem);">
             <template v-slot:prepend>
-              <q-icon name="remove" @click="removeOne(ensemble); calculTotal()" v-if="ensemble.quantity > 0"/>
+              <q-icon name="remove" @click="ensemble.quantity -= 1; calculTotal()" v-if="ensemble.quantity > 0"/>
                 <q-icon name="remove" disable v-if="ensemble.quantity <= 0"/>
             </template>
             <template v-slot:append>
