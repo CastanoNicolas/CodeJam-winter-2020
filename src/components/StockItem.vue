@@ -12,7 +12,7 @@
               {{cat}}
             </q-badge>
         </div>
-        <div class="q-gutter-md col" v-else>
+        <div class="q-gutter-md q-pt-sm col" v-else>
           <q-badge
             v-for="(cat, k) in stockItemChild[0].ingredient.categories"
             :key="k"

@@ -12,6 +12,7 @@
         <q-toolbar class="q-ma-sm">
           <div class="text-h4">{{ recipeInView.name }}</div>
         </q-toolbar>
+        <q-img src="statics/recipe.jpg" class="header-image absolute-top"/>
     </q-header>
 
     <q-page-container>
@@ -81,3 +82,11 @@ export default {
   }
 }
 </script>
+
+<style>
+.header-image {
+  height: 100%;
+  z-index: -1;
+  opacity: 0.4;
+}
+</style>
