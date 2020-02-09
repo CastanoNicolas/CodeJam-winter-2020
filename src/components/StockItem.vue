@@ -1,5 +1,5 @@
 <template>
-  <q-expansion-item switch-toggle-side expand-separator :content-inset-level="2">
+  <q-expansion-item switch-toggle-side expand-separator :content-inset-level="1.5">
     <template v-slot:header>
       <q-item-section>
         <q-item-label class="text-weight-medium">{{stockItemChild[0].ingredient.name}}</q-item-label>
@@ -16,7 +16,7 @@
         v-for="(ensemble,k) in stockItemChild"
         :key="k">
         <q-item-section>
-          <q-item-label caption lines="2">{{ensemble.ingredient.expiryDate}}</q-item-label>
+          <q-item-label caption lines="2" style="min-width: 150px">{{new Date(ensemble.ingredient.expiryDate).toDateString()}}</q-item-label>
         </q-item-section>
 
         <q-item-section side>
