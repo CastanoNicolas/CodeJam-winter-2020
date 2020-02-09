@@ -149,6 +149,7 @@ export default {
       }
       this.destination = false
       this.destination2 = false
+      this.addStock()
     },
     enoughIngredient (ingredient, quantity) {
       console.log('%c enough ?', 'color: yellow')
