@@ -5,7 +5,7 @@ export const fileHelperMixin = {
       return new Promise(function (resolve, reject) {
         // eslint-disable-next-line no-undef
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fs => {
-          fs.root.getFile(filePath, { create: true, exclusive: false }, function (fileEntry) {
+          fs.root.getFile(filePath, { create: false, exclusive: false }, function (fileEntry) {
             _this.readFileFromFE(fileEntry)
               .then(data => {
                 resolve(data)

@@ -36,6 +36,7 @@
 <script>
 import { listManagerMixin } from '../mixins/listManagerMixin'
 import { Ingredient } from '../classes/Ingredient'
+import { fileHelperMixin } from '../mixins/fileHelperMixin'
 
 export default {
   name: 'IngredientEdit',
@@ -60,12 +61,13 @@ export default {
     createIngredient () { // nouvel ingrédient, ecrase un ingrédient si il a le même nom !
       this.$store.commit('addIngredientToIngredientList', this.ingredientModified)
     },
-    applyModification () { // uniquement en cas de modification du nom, car supprime celle avec l'ancien nom !
-      let oldIngredient = this.ingredientModified
+    saveItem () { // uniquement en cas de modification du nom, car supprime celle avec l'ancien nom !
+      // let oldIngredient = this.ingredientModified
       this.$store.commit('addIngredientToIngredientList', this.ingredientModified)
-      this.$store.commit('removeIngredientFromIngredientList', oldIngredient)
+      // this.$store.commit('removeIngredientFromIngredientList', oldIngredient) => m'a pas l'air utile, si c'tes une connerie aller voir nico
+      this.saveIngredientList()
     },
-    saveItem () {
+    saveItem2 () {
       if (this.ingredientInView.name === this.ingredientModified.name) {
         this.createIngredient()
       } else {
@@ -73,7 +75,7 @@ export default {
       }
     }
   },
-  mixins: [listManagerMixin],
+  mixins: [listManagerMixin, fileHelperMixin],
   created () {
     console.log(this.ingredientList)
     for (var key in this.ingredientList) {

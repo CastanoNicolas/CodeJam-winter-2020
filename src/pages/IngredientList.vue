@@ -36,9 +36,11 @@ export default {
   methods: {
     removeIngredientFromIngredientList (ingredient) {
       this.$store.commit('removeIngredientFromIngredientList', ingredient)
+      this.saveIngredientList()
     },
     addIngredientToIngredientList (ingredient) {
       this.$store.commit('addIngredientToIngredientList', ingredient)
+      this.saveIngredientList()
     },
     updateList () {
       this.ingredientListDisplay = {}

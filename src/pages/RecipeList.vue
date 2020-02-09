@@ -52,11 +52,13 @@ export default {
     // },
     addRecipeToRecipeList (recipe) {
       this.$store.commit('addRecipeToRecipeList', recipe)
+      this.saveRecipeList()
     },
     addIngredientFromRecipeToShoppingList (recipe) {
       recipe.ingredientList.forEach(function (ingredient, index, array) {
         this.addIngredientToShoppingList(ingredient, recipe.quantityList[index])
       })
+      this.saveShoppingList()
     },
     removeIngredientFromRecipeFromStockList (recipe) {
       recipe.ingredientList.every( // Pour pouvoir break out with return false à la place d'un foreach
@@ -70,6 +72,7 @@ export default {
           }
         }
       )
+      this.saveStockList()
     },
     addRecipeToStockList (recipe, quantity) {
       let newRecipe = new Recipe({ ...recipe, expiryDate: Date.now() + recipe.dayBeforeStale })
@@ -77,6 +80,7 @@ export default {
         newRecipe,
         quantity
       })
+      this.saveStockList()
     },
     enoughIngredient (ingredient, quantity) {
       return this.$store.getters.getStockList().find((elem) => {

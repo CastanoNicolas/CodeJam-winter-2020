@@ -18,19 +18,22 @@ export default {
     initIngredientList () {
       var defaultIngredientList = '{"Carrot":{"name":"Carrot","dayBeforeStale":6,"expiryDate":null,"unity":"","categories":["Vegetable","Favorites"]},"Apple":{"name":"Apple","dayBeforeStale":6,"expiryDate":null,"unity":"","categories":["Fruit"]},"Flour":{"name":"Flour","dayBeforeStale":1000,"expiryDate":null,"unity":"kg","categories":["Cereal"]},"Milk":{"name":"Milk","dayBeforeStale":4,"expiryDate":null,"unity":"L","categories":["Protein"]}}'
       // var jsObject = new Ingr edientList()
-      // jsObject.ingredientList = JSON.pa rse(defaultIngredientList)
+      // jsObject.ingredientLi st = JSON.parse(defaultIngredientList)
       this.$store.commit('setIngredientList', JSON.parse(defaultIngredientList))
+      // this.writeFile('ingredientList.json', JSON.parse(defaultIngredientList))
     },
     checkIngredientList () {
       try {
         this.readFile('ingredientList.json')
           .then(data => {
+            console.log('DATA')
+            console.log(JSON.parse(data))
             if (data === '') {
               console.log('ingredientList data NOT found')
               this.initIngredientList()
             } else {
               console.log('ingredientList data found')
-              this.$store.commit('setIngredientList', JSON.parse(data))
+              this.$store.commit('setIngredientList', JSON.parse(data).ingredientList)
             }
           })
           .catch(err => {
@@ -55,7 +58,7 @@ export default {
               this.initShoppingList()
             } else {
               console.log('shoppingList data found')
-              this.$store.commit('setShoppingList', JSON.parse(data))
+              this.$store.commit('setShoppingList', JSON.parse(data).ingredientList)
             }
           })
           .catch(err => {
@@ -68,9 +71,9 @@ export default {
     initStockList () {
       var defaultShoppingList = '{"ingredientList":{"carrote":[{"ingredient":{"name":"carrote","dayBeforeStale":10,"expiryDate":1581239194840,"unity":"qty","categories":["legume","autre"]},"quantity":12}],"poireau":[{"ingredient":{"name":"poireau","dayBeforeStale":10,"expiryDate":1581239194842,"unity":"qty","categories":["legume","autre"]},"quantity":12},{"ingredient":{"name":"poireau","dayBeforeStale":10,"expiryDate":1581239194842,"unity":"qty","categories":["legume","autre"]},"quantity":6}]},"recipeList":{}}'
       // var jsObject = new StockList()
-      // jsObject.ingredientList = JSON.parse(defaultShoppingList)
+      // jsObject.ingr edientList = JSON.parse(defaultShoppingList)
       this.$store.commit('setStockList', JSON.parse(defaultShoppingList))
-      // console.log(JSON.stringify(JSON.parse(defaultShoppingList), null, 4))
+      // console.log(JSON.s tringify(JSON.parse(defaultShoppingList), null, 4))
       console.log(JSON.parse(defaultShoppingList))
     },
     checkStockList () {
@@ -82,7 +85,7 @@ export default {
               this.initStockList()
             } else {
               console.log('stockList data found')
-              this.$store.commit('setStockList', JSON.parse(data))
+              this.$store.commit('setStockList', JSON.parse(data).ingredientList)
             }
           })
           .catch(err => {
@@ -107,7 +110,7 @@ export default {
               this.initRecipeList()
             } else {
               console.log('recipeList data found')
-              this.$store.commit('setRecipeList', JSON.parse(data))
+              this.$store.commit('setRecipeList', JSON.parse(data).recipeList)
             }
           })
           .catch(err => {

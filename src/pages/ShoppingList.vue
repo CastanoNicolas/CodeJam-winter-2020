@@ -37,6 +37,7 @@ export default {
   methods: {
     removeIngredientFromShoppingList (ingredient, quantity) {
       this.$store.commit('removeIngredientFromShoppingList', { ingredient, quantity })
+      this.saveShoppingList()
     },
     updateList () {
       this.ingredientListDisplay = {}
