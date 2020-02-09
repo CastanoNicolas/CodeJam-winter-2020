@@ -14,7 +14,7 @@ import Search from 'components/Search'
 import RecipeItem from 'components/RecipeItem'
 import { listManagerMixin } from '../mixins/listManagerMixin'
 import { Recipe } from '../classes/Recipe'
-import { Ingredient } from '../classes/Ingredient'
+// import { Ingredient } from '../classes/Ingredient'
 
 export default {
   name: 'RecipeList',

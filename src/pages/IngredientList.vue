@@ -56,7 +56,8 @@ export default {
     // this.addIngredientToIngredientList(new Ingredient('Apple', 6, null, '', ['Fruit']))
     // this.addIngredientToIngredientList(new Ingredient('Flour', 1000, null, 'kg', ['Cereal']))
     // this.addIngredientToIngredientList(new Ingredient('Milk', 4, null, 'L', ['Protein']))
-    console.log(JSON.stringify(this.ingredientList))
+    this.updateList()
+    console.log(this.ingredientList)
   }
 
 }
