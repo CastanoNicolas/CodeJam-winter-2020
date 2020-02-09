@@ -2,7 +2,7 @@
   <q-item class="q-mb-md" v-if="isRemove === false">
     <q-item-section class="q-pl-md column">
       <q-item-label class="col text-weight-medium">{{ingredientItem.name}}</q-item-label>
-      <div class="q-pt-xs q-gutter-md col">
+      <div class="q-gutter-md col" style="margin-top: -25px">
         <q-badge
           v-for="(cat, k) in ingredientItem.categories"
           :key="k"
