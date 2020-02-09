@@ -1,10 +1,11 @@
 <template>
   <q-page class="q-ma-md">
     <div class="text-h6">Ingredients</div>
-    <q-list v-for="ingredient in recipeInView.ingredientList"
-    :key="ingredient.name">
+    <q-list v-for="(ingredient,k) in recipeInView.ingredientList"
+    :key="k">
       <RecipeIngredientItem
-        :itemNumber=quantities[ingredient.name]
+        :itemIndex=k
+        :itemNumber=recipeInView.quantityList
         :itemUnit=ingredient.unity
         :name=ingredient.name />
     </q-list>
@@ -37,7 +38,7 @@ export default {
   data () {
     return {
       recipeInView: '',
-      quantities: {}
+      quantityMatches: {}
     }
   },
   mixins: [listManagerMixin],
@@ -48,13 +49,6 @@ export default {
         this.recipeInView = recipList[key]
         break
       }
-    }
-
-    console.log(recipList)
-    console.log(this.recipeInView)
-    console.log(this.recipeInView.ingredientList)
-    for (var i = 0; i < this.recipeInView.ingredientList.length; i++) {
-      this.quantities[this.recipeInView.ingredientList[i].name] = this.recipeInView.quantityList[i]
     }
   }
 

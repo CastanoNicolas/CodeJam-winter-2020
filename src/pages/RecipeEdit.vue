@@ -1,10 +1,11 @@
 <template>
   <q-page class="q-ma-md">
     <div class="text-h6">Ingredients</div>
-    <q-list v-for="ingredient in recipEdited.ingredientList"
-    :key="ingredient.name">
+    <q-list v-for="(ingredient, k) in recipEdited.ingredientList"
+    :key="k">
       <RecipeIngredientItem
-        :itemNumber=quantitiesEdited[ingredient.name]
+        :itemIndex=k
+        :itemNumber=recipEdited.quantityList
         :itemUnit=ingredient.unity
         :name=ingredient.name />
     </q-list>
@@ -30,7 +31,7 @@ export default {
   },
   data () {
     return {
-      quantities: {},
+      quantityMatches: {},
       recipeInView: ''
     }
   },
@@ -43,9 +44,6 @@ export default {
     },
     recipEdited () {
       return this.$store.state.mainModule.recipEdited
-    },
-    quantitiesEdited () {
-      return this.$store.state.mainModule.quantitiesEdited
     }
   },
   methods: {
@@ -67,13 +65,10 @@ export default {
       return
     }
 
-    for (var i = 0; i < this.recipeInView.ingredientList.length; i++) {
-      this.$store.state.mainModule.quantitiesEdited[this.recipeInView.ingredientList[i].name] = this.recipeInView.quantityList[i]
-    }
-
     var recip = Object.assign({}, this.recipeInView)
-    recip.ingredientList = Object.assign({}, this.recipeInView.ingredientList)
-    recip.categories = Object.assign({}, this.recipeInView.categories)
+    recip.ingredientList = Object.assign([], this.recipeInView.ingredientList)
+    recip.quantityList = Object.assign([], this.recipeInView.quantityList)
+    recip.categories = Object.assign([], this.recipeInView.categories)
     this.$store.commit('setRecipEdited', recip)
   }
 }
