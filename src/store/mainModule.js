@@ -57,7 +57,7 @@ export default {
       return state.shoppingList.ingredientList
     },
     getStockList (state) {
-      return state.stockList
+      return state.stockList.ingredientList
     },
     getRecipeList (state) {
       return state.recipeList.recipeList

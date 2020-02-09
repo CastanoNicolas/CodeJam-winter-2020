@@ -1,10 +1,11 @@
 <template>
   <q-page>
-    <Search :label="labelSearch" :text="textSearch"/>
+    <Search :label="labelSearch" :textSearch.sync="textSearch"  @updateDisplay="updateList"/>
     <q-list>
-      <ShoppingItem v-for="(quantity,k) in ingredientList" :key="k"
+      <ShoppingItem v-for="(quantity,k) in ingredientListDisplay" :key="k"
         :numberItem.sync="ingredientList[k]"
-        :nameItem="k"/>
+        :nameItem="k"
+       />
     </q-list>
   </q-page>
 </template>
@@ -24,18 +25,27 @@ export default {
   data () {
     return {
       labelSearch: 'Search in shopping list',
-      textSearch: ''
+      textSearch: '',
+      ingredientListDisplay: {}
     }
   },
   computed: {
     ingredientList () {
-      console.log(this.$store.getters.getShoppingList)
       return this.$store.getters.getShoppingList
     }
   },
   methods: {
     removeIngredientFromShoppingList (ingredient, quantity) {
       this.$store.commit('removeIngredientFromShoppingList', { ingredient, quantity })
+    },
+    updateList () {
+      this.ingredientListDisplay = {}
+      var key
+      for (key in this.ingredientList) {
+        if (this.ingredientList.hasOwnProperty(key) && (key.toLowerCase()).includes(this.textSearch.toLowerCase())) {
+          this.ingredientListDisplay[key] = this.ingredientList[key]
+        }
+      }
     }
   },
   mixins: [listManagerMixin],
@@ -47,6 +57,8 @@ export default {
     this.$store.commit('addIngredientToShoppingList', { 'ingredient': carrote, 'quantity': quantity })
     this.$store.commit('addIngredientToShoppingList', { 'ingredient': poireau, 'quantity': quantity })
     console.log(this.ingredientList)
+
+    this.updateList()
   }
 
 }

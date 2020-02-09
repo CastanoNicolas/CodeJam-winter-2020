@@ -1,9 +1,9 @@
 <template>
   <q-page>
-    <Search :label="labelSearch" :text="textSearch"/>
+    <Search :label="labelSearch" :textSearch.sync="textSearch"  @updateDisplay="updateList"/>
 
     <q-list class="q-pt-md">
-      <RecipeItem v-for="recipe in recipeList" :key="recipe.name" :recipeItem="recipe">
+      <RecipeItem v-for="recipe in recipeListDisplay" :key="recipe.name" :recipeItem="recipe">
       </RecipeItem>
     </q-list>
   </q-page>
@@ -25,7 +25,8 @@ export default {
   data () {
     return {
       labelSearch: 'Search among recipes',
-      textSearch: ''
+      textSearch: '',
+      recipeListDisplay: {}
     }
   },
   created () {
@@ -37,6 +38,7 @@ export default {
 
     this.addRecipeToRecipeList(newRecip)
     this.addRecipeToRecipeList(newRecip2)
+    this.updateList()
   },
   computed: {
     // variables actualiser si changement (observables/observeur en un)
@@ -80,6 +82,15 @@ export default {
       return this.$store.getters.getStockList().find((elem) => {
         return elem.name === ingredient.name
       }).quantity >= quantity
+    },
+    updateList () {
+      this.recipeListDisplay = {}
+      var key
+      for (key in this.recipeList) {
+        if (this.recipeList.hasOwnProperty(key) && (key.toLowerCase()).includes(this.textSearch.toLowerCase())) {
+          this.recipeListDisplay[key] = this.recipeList[key]
+        }
+      }
     }
   },
   mixins: [listManagerMixin]
