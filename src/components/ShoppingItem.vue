@@ -11,10 +11,10 @@
     <q-item-section side>
       <q-input class="input_style" dense rounded standout v-model="numberItemChild" @keyup="$emit('update:numberItem', parseInt(numberItemChild));">
         <template v-slot:prepend>
-          <q-icon name="remove" />
+          <q-icon name="remove" @click="minus()"/>
         </template>
         <template v-slot:append>
-          <q-icon name="add" @click="text = ''" class="cursor-pointer" />
+          <q-icon name="add" @click="add()"/>
         </template>
       </q-input>
     </q-item-section>
@@ -32,9 +32,15 @@ export default {
       numberItemChild: this.numberItem
     }
   },
-  created () {
-    console.log('zza')
-    console.log(this.shoppingItemChild)
+  methods: {
+    minus () {
+      this.numberItemChild -= 1
+      this.$emit('update:numberItem', parseInt(this.numberItemChild))
+    },
+    add () {
+      this.numberItemChild += 1
+      this.$emit('update:numberItem', parseInt(this.numberItemChild))
+    }
   }
 }
 </script>

@@ -6,13 +6,7 @@
       </q-item-section>
 
       <q-item-section side v-on:click.stop>
-        <q-input class="input_style" dense rounded standout v-model="totalNumber">
-          <template v-slot:prepend>
-            <q-icon name="remove" />
-          </template>
-          <template v-slot:append>
-            <q-icon name="add" @click="text = ''" class="cursor-pointer" />
-          </template>
+        <q-input class="input_readonly_style" dense :readonly="true" rounded standout v-model="totalNumber">
         </q-input>
       </q-item-section>
     </template>
@@ -28,10 +22,10 @@
         <q-item-section side>
           <q-input class="input_style" dense rounded standout v-model="ensemble.quantity" @keyup="$emit('update:stockItem', stockItem);">
             <template v-slot:prepend>
-              <q-icon name="remove" />
+              <q-icon name="remove" @click="ensemble.quantity -= 1; calculTotal()"/>
             </template>
             <template v-slot:append>
-              <q-icon name="add" @click="text = ''" class="cursor-pointer" />
+              <q-icon name="add" @click="ensemble.quantity += 1; calculTotal()"/>
             </template>
           </q-input>
         </q-item-section>
@@ -52,8 +46,19 @@ export default {
     }
   },
   created () {
-    for (let i = 0; i < this.stockItem.length; i++) {
-      this.totalNumber += parseInt(this.stockItem[i].quantity)
+    this.calculTotal()
+  },
+  watch: {
+    stockItemChild () {
+      this.calculTotal()
+    }
+  },
+  methods: {
+    calculTotal () {
+      this.totalNumber = 0
+      for (let i = 0; i < this.stockItem.length; i++) {
+        this.totalNumber += parseInt(this.stockItem[i].quantity)
+      }
     }
   }
 }
@@ -63,5 +68,9 @@ export default {
 .input_style{
   text-align-last: center;
   max-width: 150px;
+}
+.input_readonly_style{
+  text-align-last: center;
+  max-width: 100px;
 }
 </style>
