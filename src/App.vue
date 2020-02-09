@@ -9,7 +9,7 @@ import { fileHelperMixin } from './mixins/fileHelperMixin'
 // import { IngredientList } from './classes/IngredientList'
 // import { ShoppingList } from './classes/ShoppingList'
 // import { StockList } from './classes/StockList'
-import { RecipeList } from './classes/RecipeList'
+// import { RecipeList } from './classes/RecipeList'
 
 export default {
   name: 'Apps',
@@ -94,9 +94,9 @@ export default {
     },
     initRecipeList () {
       var defaultRecipeList = '{"recipe test":{"name":"recipe test","dayBeforeStale":2,"expiryDate":null,"ingredientList":[{"name":"carotte","dayBeforeStale":4,"expiryDate":null,"unity":"litre","categories":"legumes"},{"name":"dolipranne","dayBeforeStale":15,"expiryDate":null,"unity":"Kg","categories":"medocs"}],"quantityList":[3,1],"description":"des carottes et un dolipranne","categories":["repas bizarre","bleu"]},"recipe encore":{"name":"recipe encore","dayBeforeStale":2,"expiryDate":null,"ingredientList":[{"name":"blub","dayBeforeStale":1,"expiryDate":null,"unity":"monument","categories":"legumes"},{"name":"dolipranne","dayBeforeStale":15,"expiryDate":null,"unity":"Kg","categories":"medocs"}],"quantityList":[3,1],"description":"des trucs et des blip bloup","categories":["repas equilibrer mais vegan"]}}'
-      var jsObject = new RecipeList()
-      jsObject.ingredientList = JSON.parse(defaultRecipeList)
-      this.$store.commit('setRecipeList', jsObject)
+      // var jsObject = new RecipeList()
+      // jsObject.ingredientList = JSON.parse(defaultRecipeList)
+      this.$store.commit('setRecipeList', JSON.parse(defaultRecipeList))
     },
     checkRecipeList () {
       try {
