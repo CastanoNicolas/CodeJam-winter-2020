@@ -3,7 +3,7 @@
     <q-item-section class="q-pl-md col">
       <q-item-label class="text-weight-medium">{{ recipeItem.name }}</q-item-label>
     </q-item-section>
-    <div class="q-pa-md q-gutter-md col">
+    <div class="q-px-md q-py-sm q-gutter-md col">
       <q-badge
         v-for="(cat, k) in recipeItem.categories"
         :key="k"
