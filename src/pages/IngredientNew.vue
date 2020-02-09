@@ -6,7 +6,8 @@
       label="Name"
     />
     <q-input
-      v-model="ingredientModified.dayBeforeStale"
+      v-model.number="ingredientModified.dayBeforeStale"
+      type="number"
       label="Days before getting spoil"
     />
     <q-input
@@ -58,11 +59,15 @@ export default {
   },
   methods: {
     createIngredient () { // nouvel ingrédient, ecrase un ingrédient si il a le même nom !
-      this.$store.commit('addIngredientToIngredientList', this.ingredientModified)
+      this.$store.commit('addIngredientToIngredientList', new Ingredient(this.ingredientModified.name, this.ingredientModified.dayBeforeStale,
+        this.ingredientModified.expiryDate, this.ingredientModified.unity,
+        this.ingredientModified.categories))
     },
     applyModification () { // uniquement en cas de modification du nom, car supprime celle avec l'ancien nom !
       let oldIngredient = this.ingredientModified
-      this.$store.commit('addIngredientToIngredientList', this.ingredientModified)
+      this.$store.commit('addIngredientToIngredientList', new Ingredient(this.ingredientModified.name, this.ingredientModified.dayBeforeStale,
+        this.ingredientModified.expiryDate, this.ingredientModified.unity,
+        this.ingredientModified.categories))
       this.$store.commit('removeIngredientFromIngredientList', oldIngredient)
     },
     saveItem () {
