@@ -29,7 +29,7 @@ export default {
   computed: {
     ingredientList () {
       // console.log(this.$store.getters.getStockList )
-      return this.$store.getters.getStockList
+      return this.$store.state.mainModule.stockList
     }
   },
   methods: {

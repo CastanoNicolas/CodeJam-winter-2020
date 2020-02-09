@@ -8,11 +8,11 @@
 import { fileHelperMixin } from './mixins/fileHelperMixin'
 // import { IngredientList } from './classes/IngredientList'
 // import { ShoppingList } from './classes/ShoppingList'
-import { StockList } from './classes/StockList'
+// import { StockList } from './classes/StockList'
 import { RecipeList } from './classes/RecipeList'
 
 export default {
-  name: 'App',
+  name: 'Apps',
   mixins: [fileHelperMixin],
   methods: {
     initIngredientList () {
@@ -67,9 +67,11 @@ export default {
     },
     initStockList () {
       var defaultShoppingList = '{"ingredientList":{"carrote":[{"ingredient":{"name":"carrote","dayBeforeStale":10,"expiryDate":1581239194840,"unity":"qty","categories":["legume","autre"]},"quantity":12}],"poireau":[{"ingredient":{"name":"poireau","dayBeforeStale":10,"expiryDate":1581239194842,"unity":"qty","categories":["legume","autre"]},"quantity":12},{"ingredient":{"name":"poireau","dayBeforeStale":10,"expiryDate":1581239194842,"unity":"qty","categories":["legume","autre"]},"quantity":6}]},"recipeList":{}}'
-      var jsObject = new StockList()
-      jsObject.ingredientList = JSON.parse(defaultShoppingList)
-      this.$store.commit('setStockList', jsObject)
+      // var jsObject = new StockList()
+      // jsObject.ingredientList = JSON.parse(defaultShoppingList)
+      this.$store.commit('setStockList', JSON.parse(defaultShoppingList))
+      // console.log(JSON.stringify(JSON.parse(defaultShoppingList), null, 4))
+      console.log(JSON.parse(defaultShoppingList))
     },
     checkStockList () {
       try {

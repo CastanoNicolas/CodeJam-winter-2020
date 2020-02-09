@@ -20,7 +20,9 @@ export default {
       state.recipeList.recipeList = recipeList
     },
     setStockList (state, stockList) {
-      state.stockList.ingredientList = stockList
+      state.stockList.ingredientList = stockList.ingredientList
+      state.stockList.recipeList = stockList.recipeList
+      console.log(state.stockList)
     },
     setShoppingList (state, shoppingList) {
       state.shoppingList.ingredientList = shoppingList
