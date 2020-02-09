@@ -37,6 +37,7 @@ export default {
 
     this.addRecipeToRecipeList(newRecip)
     this.addRecipeToRecipeList(newRecip2)
+    console.log(JSON.stringify(this.recipeList))
   },
   computed: {
     // variables actualiser si changement (observables/observeur en un)

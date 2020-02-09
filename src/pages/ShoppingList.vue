@@ -13,7 +13,7 @@
 import { listManagerMixin } from '../mixins/listManagerMixin'
 import Search from 'components/Search'
 import ShoppingItem from 'components/ShoppingItem'
-import { Ingredient } from '../classes/Ingredient'
+// import { Ingredient } from '../classes/Ingredient'
 
 export default {
   name: 'IngredientList',
@@ -39,12 +39,12 @@ export default {
   },
   mixins: [listManagerMixin],
   created () {
-    var carrote = new Ingredient('carrote', 10, '', 'qty', ['legume', 'autre'])
-    var poireau = new Ingredient('poireau', 10, '', 'qty', ['legume', 'autre'])
+    // var carrote = new Ingredient('carrote', 10, '', 'qty', ['legume', 'autre'])
+    // var poireau = new Ingredient('poireau', 10, '', 'qty', ['legume', 'autre'])
 
-    var quantity = 12
-    this.$store.commit('addIngredientToShoppingList', { 'ingredient': carrote, 'quantity': quantity })
-    this.$store.commit('addIngredientToShoppingList', { 'ingredient': poireau, 'quantity': quantity })
+    // var quantity = 12
+    // this.$store.commit('addIngredientToShoppingList', { 'ingredient': carrote, 'quantity': quantity })
+    // this.$store.commit('addIngredientToShoppingList', { 'ingredient': poireau, 'quantity': quantity })
     console.log(this.ingredientList)
   }
 

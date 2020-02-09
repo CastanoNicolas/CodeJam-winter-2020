@@ -14,15 +14,17 @@ export default {
   mutations: {
     setIngredientList (state, ingredientList) {
       state.ingredientList = ingredientList
+      console.log(state.ingredientList)
     },
     setRecipeList (state, recipeList) {
-      state.recipeList = recipeList
+      state.recipeList.recipeList = recipeList
     },
     setStockList (state, stockList) {
-      state.stockList = stockList
+      state.stockList.ingredientList = stockList
     },
     setShoppingList (state, shoppingList) {
-      state.shoppingList = shoppingList
+      state.shoppingList.ingredientList = shoppingList
+      console.log(state.shoppingList)
     },
     addIngredientToIngredientList (state, ingredient) {
       state.ingredientList.addIngredient(ingredient)
@@ -38,6 +40,7 @@ export default {
     },
     addIngredientToShoppingList (state, { ingredient, quantity }) {
       state.shoppingList.addIngredient(ingredient, quantity)
+      console.log('addIngredient to Shopping list')
     },
     removeIngredientFromShoppingList (state, { ingredient, quantity }) {
       state.shoppingList.removeIngredient(ingredient, quantity)

@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     ingredientList () {
-      return this.$store.getters.getIngredientList
+      return this.$store.state.mainModule.ingredientList
     }
   },
   methods: {
