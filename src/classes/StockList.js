@@ -46,7 +46,7 @@ export class StockList {
     }
   }
   ingredientExist (ingredient) {
-    return this.ingredientList[ingredient.name].findIndex((elem) => {
+    return this.ingredientList[ingredient.name].findIndex(elem => {
       // remplacer par for ... in
       if (!elem) {
         return false
