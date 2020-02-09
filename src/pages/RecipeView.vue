@@ -46,7 +46,7 @@
         <q-btn-group left class="q-pt-md justify-end">
           <q-btn v-if="stock" label="Stock" icon="kitchen" @click="addStock"/>
           <q-btn v-else-if="shop" label="Cook !" icon="las la-blender"  @click="tryRemoveStock"/>
-          <q-btn v-else label="Shop" icon="add_shopping_cart"  @click="addShoping"/>
+          <q-btn v-else label="Shop" icon="add_shopping_cart"  @click="addShopping"/>
         </q-btn-group>
       </q-card>
     </q-dialog>
@@ -123,11 +123,17 @@ export default {
       this.destination = false
       this.quantity = 1
     },
-    tryRemoveStock () {
-      let remove = false
+    addShopping () {
       for (const elem in this.recipeInView.ingredientList) {
         console.log(this.recipeInView.ingredientList[elem])
         console.log(this.recipeInView.quantityList[elem])
+        var ing = { 'ingredient': this.recipeInView.ingredientList[elem], 'quantity': this.quantity * this.recipeInView.quantityList[elem] }
+        this.addIngredientToShoppingList(ing.ingredient, ing.quantity)
+      }
+    },
+    tryRemoveStock () {
+      let remove = false
+      for (const elem in this.recipeInView.ingredientList) {
         var ing = { 'ingredient': this.recipeInView.ingredientList[elem], 'quantity': this.quantity * this.recipeInView.quantityList[elem] }
         if (this.enoughIngredient(ing.ingredient, ing.quantity)) {
           console.log('%c Good !', 'color:green')
