@@ -7,8 +7,7 @@ const routes = [
       { path: '/', component: () => import('pages/StockList.vue') },
       { path: '/ShoppingList', component: () => import('pages/ShoppingList.vue') },
       { path: '/IngredientList', component: () => import('pages/IngredientList.vue') },
-      { path: '/RecipeList', component: () => import('pages/RecipeList.vue') },
-      { path: '/IngredientEdit', component: () => import('pages/IngredientEdit.vue') }
+      { path: '/RecipeList', component: () => import('pages/RecipeList.vue') }
     ]
   },
   {
@@ -17,6 +16,13 @@ const routes = [
     children: [
       { path: '/RecipeView/:recipeName', component: () => import('pages/RecipeView.vue') },
       { path: '/RecipeView/Edit/:recipeName', component: () => import('pages/RecipeEdit.vue') }
+    ]
+  },
+  {
+    path: '/IngredientEdit',
+    component: () => import('layouts/IngredientLayout.vue'),
+    children: [
+      { path: '/IngredientEdit/:ingredientName', component: () => import('pages/IngredientEdit.vue') }
     ]
   }
 ]
