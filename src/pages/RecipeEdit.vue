@@ -28,7 +28,6 @@
 <script>
 import RecipeIngredientItem from 'components/RecipeIngredientItem'
 import { listManagerMixin } from '../mixins/listManagerMixin'
-import { Ingredient } from '../classes/Ingredient'
 
 export default {
   name: 'RecipeEdit',
