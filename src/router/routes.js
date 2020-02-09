@@ -22,7 +22,8 @@ const routes = [
     path: '/IngredientEdit',
     component: () => import('layouts/IngredientLayout.vue'),
     children: [
-      { path: '/IngredientEdit/:ingredientName', component: () => import('pages/IngredientEdit.vue') }
+      { path: '/IngredientEdit/:ingredientName', component: () => import('pages/IngredientEdit.vue') },
+      { path: '/IngredientNew', component: () => import('pages/IngredientNew.vue') }
     ]
   }
 ]

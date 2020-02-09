@@ -1,13 +1,19 @@
 <template>
   <q-page class="q-ma-md">
     <div class="text-h6">Ingredients</div>
-    <q-list v-for="ingredient in recipEdited.ingredientList"
-    :key="ingredient.name">
+    <q-list v-for="(ingredient, k) in recipEdited.ingredientList"
+    :key="k">
       <RecipeIngredientItem
-        :itemNumber=quantitiesEdited[ingredient.name]
+        :itemIndex=k
+        :itemNumber=recipEdited.quantityList
         :itemUnit=ingredient.unity
         :name=ingredient.name />
     </q-list>
+    <q-select borderless v-model="chosenIngredient" :options="availableIngredientsNames" label="Add ingredient" @input="addIngredient">
+      <template v-slot:before>
+        <q-icon name="add" />
+      </template>
+    </q-select>
     <div class="q-mt-lg text-h6">Directions</div>
     <div class="q-pa-md">
     <q-input
@@ -22,6 +28,7 @@
 <script>
 import RecipeIngredientItem from 'components/RecipeIngredientItem'
 import { listManagerMixin } from '../mixins/listManagerMixin'
+import { Ingredient } from '../classes/Ingredient'
 
 export default {
   name: 'RecipeEdit',
@@ -30,7 +37,10 @@ export default {
   },
   data () {
     return {
-      quantities: {},
+      availableIngredientsNames: [],
+      availableIngredients: {},
+      chosenIngredient: null,
+      quantityMatches: {},
       recipeInView: ''
     }
   },
@@ -44,13 +54,26 @@ export default {
     recipEdited () {
       return this.$store.state.mainModule.recipEdited
     },
-    quantitiesEdited () {
-      return this.$store.state.mainModule.quantitiesEdited
+    ingredientList () {
+      return this.$store.getters.getIngredientList
     }
   },
   methods: {
     createRecipe () { // nouvelle recipe, ecrase une recipe si elle a le même nom !
       this.$store.commit('addRecipeToRecipeList', this.recipModified)
+    },
+    addIngredient (ingredientName) {
+      let ingredient = this.availableIngredients[ingredientName]
+      delete this.availableIngredients[ingredientName]
+      this.recipEdited.ingredientList.push(ingredient)
+      this.recipEdited.quantityList.push(1)
+      for (var e in this.availableIngredientsNames) {
+        if (this.availableIngredientsNames[e] === ingredientName) {
+          this.availableIngredientsNames.splice(e, 1)
+          break
+        }
+      }
+      this.chosenIngredient = null
     }
   },
   mixins: [listManagerMixin],
@@ -67,14 +90,32 @@ export default {
       return
     }
 
-    for (var i = 0; i < this.recipeInView.ingredientList.length; i++) {
-      this.$store.state.mainModule.quantitiesEdited[this.recipeInView.ingredientList[i].name] = this.recipeInView.quantityList[i]
-    }
-
     var recip = Object.assign({}, this.recipeInView)
-    recip.ingredientList = Object.assign({}, this.recipeInView.ingredientList)
-    recip.categories = Object.assign({}, this.recipeInView.categories)
+    recip.ingredientList = Object.assign([], this.recipeInView.ingredientList)
+    recip.quantityList = Object.assign([], this.recipeInView.quantityList)
+    recip.categories = Object.assign([], this.recipeInView.categories)
     this.$store.commit('setRecipEdited', recip)
+
+    this.$store.commit('addIngredientToIngredientList', new Ingredient('carotte', 4, null, 'Litres', 'Légumes'))
+    this.$store.commit('addIngredientToIngredientList', new Ingredient('courgette', 4, null, 'Litres', 'Légumes'))
+    this.$store.commit('addIngredientToIngredientList', new Ingredient('salade', 4, null, 'Litres', 'Légumes'))
+
+    var k
+    for (k in this.ingredientList) {
+      if (this.ingredientList.hasOwnProperty(k)) {
+        var shouldKeep = true
+        for (var ing in recip.ingredientList) {
+          if (recip.ingredientList[ing].name === this.ingredientList[k].name) {
+            shouldKeep = false
+            break
+          }
+        }
+        if (shouldKeep) {
+          this.availableIngredients[k] = this.ingredientList[k]
+          this.availableIngredientsNames.push(this.ingredientList[k].name)
+        }
+      }
+    }
   }
 }
 </script>

@@ -6,6 +6,10 @@
       <IngredientItem v-for="ingredient in ingredientListDisplay" :key="ingredient.name" :ingredientItem="ingredient">
       </IngredientItem>
     </q-list>
+
+    <q-page-sticky position="bottom-right" :offset="[20, 20]">
+      <q-btn round color="primary" icon="add" to="/IngredientNew"/>
+    </q-page-sticky>
   </q-page>
 </template>
 
@@ -50,6 +54,7 @@ export default {
           this.ingredientListDisplay[key] = this.ingredientList[key]
         }
       }
+      console.log(this.ingredientList)
     }
   },
   mixins: [listManagerMixin],

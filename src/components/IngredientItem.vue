@@ -1,5 +1,5 @@
 <template>
-  <q-item class="q-mb-md">
+  <q-item class="q-mb-md" v-if="isRemove === false">
     <q-item-section class="q-pl-md column">
       <q-item-label class="col text-weight-medium">{{ingredientItem.name}}</q-item-label>
       <div class="q-pt-xs q-gutter-md col">
@@ -13,7 +13,7 @@
     </q-item-section>
     <q-btn flat round icon="add" @click="destination = true" />
     <q-btn flat round icon="edit" :to="ingredientPath"/>
-    <q-btn flat round icon="delete" />
+    <q-btn flat round icon="delete" @click="remove" />
 
     <q-dialog v-model="destination">
       <q-card style="width: 300px" class="q-px-sm q-pb-md">
@@ -41,8 +41,8 @@
         </q-item>
 
       <q-btn-group class="q-pt-md">
-        <q-btn label="Stock" icon="kitchen"/>
-        <q-btn label="Shopping list" icon-right="add_shopping_cart" />
+        <q-btn label="Stock" icon="kitchen" @click="addStock"/>
+        <q-btn label="Shopping list" icon-right="add_shopping_cart"  @click="addShopping"/>
       </q-btn-group>
       </q-card>
     </q-dialog>
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'IngredientItem',
   props: ['ingredientItem'],
@@ -58,7 +59,26 @@ export default {
       destination: false,
       slide: 11,
       quantity: 1,
+      isRemove: false,
       ingredientPath: '/IngredientEdit/' + this.ingredientItem.name
+    }
+  },
+  methods: {
+    remove () {
+      this.isRemove = true
+      this.$store.commit('removeIngredientFromIngredientList', this.ingredientItem)
+    },
+    addStock () {
+      var ing = { 'ingredient': this.ingredientItem, 'quantity': this.quantity }
+      this.$store.commit('addIngredientToStockList', ing)
+      this.destination = false
+      this.quantity = 1
+    },
+    addShopping () {
+      var ing = { 'ingredient': this.ingredientItem, 'quantity': this.quantity }
+      this.$store.commit('addIngredientToShoppingList', ing)
+      this.destination = false
+      this.quantity = 1
     }
   }
 }

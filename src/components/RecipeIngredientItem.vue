@@ -9,13 +9,13 @@
       </q-item-section>
 
       <q-item-section v-if="editing" class="col-4">
-        <q-input v-model.number="itemNumber" class="input_style" type="number"/>
+        <q-input v-model.number="itemNumberBis[itemIndex]" class="input_style" type="number" />
       </q-item-section>
 
       <q-item-section v-else class="col-4">
         <q-field readonly>
           <template v-slot:control>
-            <div class="input_style full-width">{{itemNumber}}</div>
+            <div class="input_style full-width">{{itemNumberBis[itemIndex]}}</div>
           </template>
         </q-field>
       </q-item-section>
@@ -28,11 +28,17 @@
 
 <script>
 export default {
-  name: 'StockItem',
+  name: 'RecipeIngredientItem',
   props: {
-    itemNumber: Number,
+    itemIndex: Number,
+    itemNumber: Array,
     itemUnit: String,
     name: String
+  },
+  data () {
+    return {
+      itemNumberBis: this.itemNumber
+    }
   },
   computed: {
     editing () {
