@@ -51,6 +51,15 @@ export default {
     var quantity = 12
     this.$store.commit('addIngredientToStockList', { 'ingredient': carrote, 'quantity': quantity })
     console.log(this.ingredientList)
+
+    console.log('%c Recipe ! ===>', 'font-size: 25px; color : orange')
+    let recipies = this.$store.getters.getRecipeList
+    for (const key in recipies) {
+      console.log(recipies[key])
+      this.$store.commit('addRecipeToStockList', { recipe: recipies[key], quantity: 1 })
+    }
+    console.log(this.$store.getters.getStockList)
+    // this.$store.commit('addRecipeToStockList', recipe1)
   }
 }
 </script>
