@@ -1,5 +1,7 @@
 # Quasar App made during the CGI codejam 2020
 
+
+
 ### Team members:
 - Nicolas C.
 - Juliette L.
@@ -19,18 +21,19 @@ In the constraints of a codejam, we couldn't afford other ways but the little ap
 + an API to collect common data about food (days before spoil, units, prices,...)
 + an API to help people share their recipes
 
-
 ## Installation
 #### Android
 - Download the .apk file on your Android device
 - Install the app from the file explorer
 - Start feeling what a free life looks like!
+
 _Note: Perhaps you need to authorize your android to execute non-Playstore application https://www.cnet.com/how-to/how-to-install-apps-outside-of-google-play/_
 
 #### Desktop
-- Download the executable file for your desktop
-- Install it and follow the instructions
-- Manage your food like a god (or almost)!
+The Quasar app is also available on desktop, you can find the executable file  from the root flolder at:
+```bash
+"electron/Quasar App-win32-x64/ Quasar App.exe"
+```
 
 
 ## Code source - Project configuration
