@@ -29,6 +29,7 @@ export default {
   },
   computed: {
     ingredientList () {
+      console.log(this.$store.getters.getShoppingList)
       return this.$store.getters.getShoppingList
     }
   },
@@ -39,7 +40,7 @@ export default {
   },
   mixins: [listManagerMixin],
   created () {
-    var carrote = new Ingredient('carrote', 10, '', 'qty', ['legume', 'autre'])
+    var carrote = new Ingredient('Carrot', 10, '', 'qty', ['legume', 'autre'])
     var poireau = new Ingredient('poireau', 10, '', 'qty', ['legume', 'autre'])
 
     var quantity = 12

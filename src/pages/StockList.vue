@@ -37,7 +37,7 @@ export default {
   },
   mixins: [listManagerMixin],
   created () {
-    var carrote = new Ingredient('carrote', 10, '', 'qty', ['legume', 'autre'])
+    var carrote = new Ingredient('Carrot', 10, '', 'qty', ['legume', 'autre'])
     console.log('carrote:')
     console.log(carrote)
 

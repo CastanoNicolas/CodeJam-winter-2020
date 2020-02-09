@@ -1,5 +1,5 @@
 <template>
-  <q-item>
+  <q-item v-if="val === false">
     <div class="q-gutter-md">
       <q-checkbox v-model="val" />
     </div>
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { listManagerMixin } from '../mixins/listManagerMixin'
+
 export default {
   name: 'ShoppingItem',
   props: ['numberItem', 'nameItem'],
@@ -33,6 +35,8 @@ export default {
       numberItemChild: this.numberItem
     }
   },
+  created () {
+  },
   methods: {
     minus () {
       this.numberItemChild -= 1
@@ -41,6 +45,26 @@ export default {
     add () {
       this.numberItemChild += 1
       this.$emit('update:numberItem', parseInt(this.numberItemChild))
+    }
+  },
+  computed: {
+    ingredientList () {
+      return this.$store.getters.getIngredientList
+    }
+  },
+  mixins: [listManagerMixin],
+  watch: {
+    val () {
+      if (this.val === true) {
+        var ing
+        for (const elem in this.ingredientList) {
+          if (elem.toLowerCase() === this.nameItem.toLowerCase()) {
+            ing = this.ingredientList[elem]
+            break
+          }
+        }
+        this.addIngredientToStockList(ing, this.numberItemChild)
+      }
     }
   }
 }
