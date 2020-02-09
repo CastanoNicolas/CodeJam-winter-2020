@@ -96,10 +96,6 @@ export default {
     this.recip.categories = Object.assign([], this.recipeInView.categories)
     this.$store.commit('setRecipEdited', this.recip)
 
-    this.$store.commit('addIngredientToIngredientList', new Ingredient('carotte', 4, null, 'Litres', 'Légumes'))
-    this.$store.commit('addIngredientToIngredientList', new Ingredient('courgette', 4, null, 'Litres', 'Légumes'))
-    this.$store.commit('addIngredientToIngredientList', new Ingredient('salade', 4, null, 'Litres', 'Légumes'))
-
     var k
     for (k in this.ingredientList) {
       if (this.ingredientList.hasOwnProperty(k)) {
