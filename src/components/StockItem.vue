@@ -21,7 +21,7 @@
         </q-item-section>
 
         <q-item-section side class="input_style">
-          <q-input class="input_style" dense rounded standout type="number" v-model="ensemble.quantity" @keyup="$emit('update:stockItem', stockItem);">
+          <q-input class="input_style" dense rounded standout readonly type="number" v-model="ensemble.quantity" @keyup="$emit('update:stockItem', stockItem);">
             <template v-slot:prepend>
               <q-icon name="remove" @click="ensemble.quantity -= 1; calculTotal()" v-if="ensemble.quantity > 0"/>
                 <q-icon name="remove" disable v-if="ensemble.quantity <= 0"/>
@@ -80,7 +80,7 @@ export default {
 <style>
 .input_style{
   text-align-last: center;
-  max-width: 150px;
+  max-width: 130px;
 }
 .input_readonly_style{
   text-align-last: center;

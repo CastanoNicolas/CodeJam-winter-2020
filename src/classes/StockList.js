@@ -16,7 +16,7 @@ export class StockList {
       this.ingredientList[ingredient.name][exist].quantity -= quantity
       if (this.ingredientList[ingredient.name][exist].quantity <= 0) {
         let rest = -this.ingredientList[ingredient.name][exist].quantity
-        delete this.ingredientList[ingredient.name][exist]
+        this.ingredientList[ingredient.name].splice(exist, 1)
         let exist2 = this.ingredientExist(ingredient)
         if (exist2 !== undefined && exist2 !== -1 && rest !== 0) {
           this.removeIngredient(ingredient, rest)
@@ -46,18 +46,23 @@ export class StockList {
     }
   }
   ingredientExist (ingredient) {
-    return this.ingredientList[ingredient.name].findIndex(elem => {
+    console.log('exists ?')
+    if (!ingredient) {
+      return -1
+    }
+    if (this.ingredientList[ingredient.name]) {
+      return this.ingredientList[ingredient.name].findIndex(elem => {
       // remplacer par for ... in
-      if (!elem) {
-        return false
-      }
-      elem = elem.ingredient
-      if (elem.name === ingredient.name) {
-        return true
-      } else {
-        return false
-      }
-    })
+        if (!elem) {
+          return false
+        }
+        elem = elem.ingredient
+        if (elem.name === ingredient.name) {
+          return true
+        }
+      })
+    }
+    return -1
   }
   recipeExist (recipe) {
     for (const key in this.recipeList) {
