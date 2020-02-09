@@ -5,9 +5,6 @@
       <StockItem v-for="(ingredient,k) in ingredientList.ingredientList" :key="k"
         :stockItem="ingredient"/>
     </q-list>
-    <q-page-sticky position="bottom-right" :offset="[20, 20]">
-      <q-btn round color="primary" icon="add"/>
-    </q-page-sticky>
   </q-page>
 </template>
 

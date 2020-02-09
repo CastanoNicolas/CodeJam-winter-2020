@@ -25,10 +25,12 @@ module.exports = function (ctx) {
       // 'line-awesome',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
+      'ionicons-v4',
       'roboto-font', // optional, you are not bound to it
       'material-icons', // optional, you are not bound to it
-      'mdi-v3',
-      'fontawesome-v5'
+      'mdi-v4',
+      'fontawesome-v5',
+      'line-awesome'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
