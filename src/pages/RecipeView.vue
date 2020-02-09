@@ -16,11 +16,45 @@
       type="textarea"
       readonly autogrow
     />
+
+    <q-dialog v-model="destination">
+      <q-card style="width: 300px" class="q-px-sm q-pb-md">
+        <q-card-section>
+          <div v-if="stock" class="text-h6">Add {{ recipeInView.name }} to stock</div>
+          <div v-else-if="shop" class="text-h6">Cook {{ recipeInView.name }}</div>
+        </q-card-section>
+
+        <q-item-label header>Amount</q-item-label>
+        <q-item dense>
+          <q-item-section align="center">
+            <q-input class="input_style" dense rounded standout v-model.number="quantity" type="number">
+              <template v-slot:before>
+                <q-icon name="fas fa-carrot" />
+              </template>
+              <template v-slot:prepend>
+                <q-icon name="remove" @click="quantity -= 1;" v-if="quantity > 0"/>
+                  <q-icon name="remove" disable v-if="quantity <= 0"/>
+              </template>
+              <template v-slot:append>
+                <q-icon name="add" @click="quantity += 1;"/>
+              </template>
+            </q-input>
+
+          </q-item-section>
+        </q-item>
+
+        <q-btn-group left class="q-pt-md justify-end">
+          <q-btn v-if="stock" label="Stock" icon="kitchen" @click="addStock"/>
+          <q-btn v-else-if="shop" label="Cook !" icon="las la-blender"  @click="removeShopping"/>
+        </q-btn-group>
+      </q-card>
+    </q-dialog>
+
     </div>
     <q-page-sticky position="bottom" :offset="[0, 5]" class="q-pa-md">
       <q-btn-group>
-        <q-btn push label="Use Ingredients" icon="las la-blender" />
-        <q-btn push label="Add to Stock" icon="kitchen" />
+        <q-btn push label="Use Ingredients" icon="las la-blender" @click="destination= true; stock = false; shop = true;" />
+        <q-btn push label="Add to Stock" icon="kitchen" @click="destination= true; shop = false; stock = true;"/>
       </q-btn-group>
     </q-page-sticky>
   </q-page>
@@ -38,6 +72,11 @@ export default {
   data () {
     return {
       recipeInView: '',
+      quantities: {},
+      destination: false,
+      stock: false,
+      shop: false,
+      quantity: 1,
       quantityMatches: {}
     }
   },
@@ -50,8 +89,28 @@ export default {
         break
       }
     }
+    for (var i = 0; i < this.recipeInView.ingredientList.length; i++) {
+      this.quantities[this.recipeInView.ingredientList[i].name] = this.recipeInView.quantityList[i]
+    }
+  },
+  methods: {
+    addStock () {
+      var ing = { 'ingredient': this.recipeInView, 'quantity': this.quantity }
+      this.$store.commit('addIngredientToStockList', ing)
+      this.destination = false
+      this.quantity = 1
+    },
+    removeShopping () {
+      for (const elem in this.recipeInView.ingredientList) {
+        console.log(this.recipeInView.ingredientList[elem])
+        console.log(this.recipeInView.quantityList[elem])
+        var ing = { 'ingredient': this.recipeInView.ingredientList[elem], 'quantity': this.quantity * this.recipeInView.quantityList[elem] }
+        this.$store.commit('removeIngredientFromStockList', ing)
+      }
+      this.destination = false
+      this.quantity = 1
+    }
   }
-
 }
 </script>
 

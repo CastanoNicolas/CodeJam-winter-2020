@@ -64,11 +64,13 @@ export default {
       let oldIngredient = this.ingredientModified
       this.$store.commit('addIngredientToIngredientList', this.ingredientModified)
       this.$store.commit('removeIngredientFromIngredientList', oldIngredient)
+      console.log(this.ingredientList)
     },
     saveItem () {
       if (this.ingredientInView.name === this.ingredientModified.name) {
         this.createIngredient()
       } else {
+        console.log('yoyo')
         this.applyModification()
       }
     }

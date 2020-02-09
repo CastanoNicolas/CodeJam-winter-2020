@@ -1,7 +1,7 @@
 <template>
   <q-input class="q-pa-md" outlined v-model="textData" :label="label">
       <template v-slot:append>
-        <q-icon v-if="textData !== ''" name="close" @click="textData = ''" class="cursor-pointer" />
+        <q-icon v-if="textSearch !== ''" name="close" @click="textData = ''" class="cursor-pointer" />
         <q-icon name="search" />
       </template>
 
@@ -25,7 +25,6 @@ export default {
   },
   watch: {
     textData () {
-      console.log('here')
       this.$emit('update:textSearch', this.textData)
       this.$emit('updateDisplay')
     }

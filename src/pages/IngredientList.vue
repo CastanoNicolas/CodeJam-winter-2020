@@ -52,6 +52,7 @@ export default {
           this.ingredientListDisplay[key] = this.ingredientList[key]
         }
       }
+      console.log(this.ingredientList)
     }
   },
   mixins: [listManagerMixin],
@@ -62,7 +63,6 @@ export default {
     this.addIngredientToIngredientList(new Ingredient('Milk', 4, null, 'L', ['Protein']))
 
     this.updateList()
-    console.log(JSON.stringify(this.ingredientList))
   }
 
 }
