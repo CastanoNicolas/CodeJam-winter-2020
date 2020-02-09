@@ -124,6 +124,7 @@ export default {
       this.quantity = 1
     },
     addShopping () {
+      this.destination = false
       for (const elem in this.recipeInView.ingredientList) {
         console.log(this.recipeInView.ingredientList[elem])
         console.log(this.recipeInView.quantityList[elem])
