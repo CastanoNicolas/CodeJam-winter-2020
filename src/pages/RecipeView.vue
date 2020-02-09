@@ -45,7 +45,8 @@
 
         <q-btn-group left class="q-pt-md justify-end">
           <q-btn v-if="stock" label="Stock" icon="kitchen" @click="addStock"/>
-          <q-btn v-else-if="shop" label="Cook !" icon="las la-blender"  @click="tryRemoveShopping"/>
+          <q-btn v-else-if="shop" label="Cook !" icon="las la-blender"  @click="tryRemoveStock"/>
+          <q-btn v-else label="Shop" icon="add_shopping_cart"  @click="addShoping"/>
         </q-btn-group>
       </q-card>
     </q-dialog>
@@ -59,7 +60,7 @@
         <q-item-label header>Create this recipe anyway ?</q-item-label>
 
       <q-btn-group class="q-pt-md">
-        <q-btn label="Yes" icon="check" @click="removeShopping"/>
+        <q-btn label="Yes" icon="check" @click="removeStock"/>
         <q-btn label="No" icon="close"  @click="()=>{destination2 = false}"/>
       </q-btn-group>
       </q-card>
@@ -68,8 +69,9 @@
     </div>
     <q-page-sticky position="bottom" :offset="[0, 5]" class="q-pa-md">
       <q-btn-group>
-        <q-btn push label="Use Ingredients" icon="las la-blender" @click="destination= true; stock = false; shop = true;" />
-        <q-btn push label="Add to Stock" icon="kitchen" @click="destination= true; shop = false; stock = true;"/>
+        <q-btn push label="Cook" icon="las la-blender" @click="destination= true; stock = false; shop = true;" class='mygroup'/>
+        <q-btn push label="Stock" icon="kitchen" @click="destination= true; shop = false; stock = true;" class='mygroup'/>
+        <q-btn push label="Shop" icon="add_shopping_cart" @click="destination= true; shop = false; stock = false;" class='mygroup'/>
       </q-btn-group>
     </q-page-sticky>
   </q-page>
@@ -121,7 +123,7 @@ export default {
       this.destination = false
       this.quantity = 1
     },
-    tryRemoveShopping () {
+    tryRemoveStock () {
       let remove = false
       for (const elem in this.recipeInView.ingredientList) {
         console.log(this.recipeInView.ingredientList[elem])
@@ -139,11 +141,11 @@ export default {
         }
       }
       if (remove) {
-        this.removeShopping()
+        this.removeStock()
       }
       this.destination = false
     },
-    removeShopping () {
+    removeStock () {
       for (const elem in this.recipeInView.ingredientList) {
         console.log(this.recipeInView.ingredientList[elem])
         console.log(this.recipeInView.quantityList[elem])
@@ -180,4 +182,9 @@ export default {
 </script>
 
 <style>
+.mygroup{
+  text-align-last: center;
+  min-height: 10%;
+  font-size: 125%;
+}
 </style>
