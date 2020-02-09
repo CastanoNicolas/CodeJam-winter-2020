@@ -52,14 +52,9 @@ export class StockList {
         return false
       }
       elem = elem.ingredient
-      if (elem.name === ingredient.name &&
-         elem.dayBeforeStale === ingredient.dayBeforeStale &&
-         elem.unity === ingredient.unity &&
-         elem.categories === ingredient.categories) {
-        console.log('ingredient EXIST')
+      if (elem.name === ingredient.name) {
         return true
       } else {
-        console.log('ingredient NOT exist')
         return false
       }
     })
@@ -68,12 +63,7 @@ export class StockList {
     for (const key in this.recipeList) {
       if (this.recipeList.hasOwnProperty(key)) {
         const elem = this.recipeList[key].recipe
-        if (elem.name === recipe.name &&
-          elem.dayBeforeStale === recipe.dayBeforeStale &&
-          elem.ingredientList === recipe.ingredientList &&
-          elem.quantityList === recipe.quantityList &&
-          elem.description === recipe.description &&
-          elem.categories === recipe.categories) {
+        if (elem.name === recipe.name) {
           return true
         }
       }
