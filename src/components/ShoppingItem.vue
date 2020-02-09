@@ -9,7 +9,7 @@
     </q-item-section>
 
     <q-item-section side>
-      <q-input class="input_style" dense rounded standout v-model="numberItemChild" @keyup="$emit('update:numberItem', parseInt(numberItemChild));">
+      <q-input class="input_style" dense rounded standout type="number" v-model="numberItemChild" @keyup="$emit('update:numberItem', parseInt(numberItemChild));">
         <template v-slot:prepend>
           <q-icon name="remove" @click="minus()"  v-if="numberItemChild > 0"/>
           <q-icon name="remove" disable v-if="numberItemChild <= 0"/>
