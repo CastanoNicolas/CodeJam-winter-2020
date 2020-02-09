@@ -12,16 +12,16 @@
         <q-input v-model.number="itemNumber" class="input_style" type="number"/>
       </q-item-section>
 
-      <q-item-section v-if="editing" class="col-1">
-            <div class="input_style full-width"> {{ itemUnit}}</div>
-      </q-item-section>
-
       <q-item-section v-else class="col-4">
         <q-field readonly>
           <template v-slot:control>
-            <div class="input_style full-width">{{itemNumber}} {{ itemUnit}}</div>
+            <div class="input_style full-width">{{itemNumber}}</div>
           </template>
         </q-field>
+      </q-item-section>
+
+      <q-item-section class="col-1">
+            <div class="input_style full-width"> {{ itemUnit}}</div>
       </q-item-section>
   </q-item>
 </template>

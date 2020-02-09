@@ -9,7 +9,9 @@ export default {
     recipeList: new RecipeList(),
     stockList: new StockList(),
     shoppingList: new ShoppingList(),
-    isEditing: false
+    isEditing: false,
+    recipEdited: '',
+    quantitiesEdited: {}
   },
   mutations: {
     setIngredientList (state, ingredientList) {
@@ -60,6 +62,9 @@ export default {
     },
     setEditing (state, isEditing) {
       state.isEditing = isEditing
+    },
+    setRecipEdited (state, recip) {
+      state.recipEdited = recip
     }
   },
   actions: {
