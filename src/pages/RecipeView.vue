@@ -151,9 +151,9 @@ export default {
         this.$store.commit('removeIngredientFromStockList', ing)
       }
       this.destination = false
-      this.quantity = 1
       this.destination2 = false
       this.addStock()
+      this.quantity = 1
     },
     enoughIngredient (ingredient, quantity) {
       console.log('%c enough ?', 'color: yellow')
