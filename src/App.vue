@@ -26,8 +26,6 @@ export default {
       try {
         this.readFile('ingredientList.json')
           .then(data => {
-            console.log('DATA')
-            console.log(JSON.parse(data))
             if (data === '') {
               console.log('ingredientList data NOT found')
               this.initIngredientList()
@@ -80,12 +78,14 @@ export default {
       try {
         this.readFile('stockList.json')
           .then(data => {
+            console.log('DATA')
+            console.log(JSON.parse(data))
             if (data === '') {
               console.log('stockList data NOT found')
               this.initStockList()
             } else {
               console.log('stockList data found')
-              this.$store.commit('setStockList', JSON.parse(data).ingredientList)
+              this.$store.commit('setStockList', JSON.parse(data))
             }
           })
           .catch(err => {
@@ -122,7 +122,10 @@ export default {
     }
   },
   created () {
-    // Initialisation de la liste d'ingredients
+    // this.initStockList()
+    // this.writeFile('stockList.json',  this.$store.state.mainModule.stockList)
+
+    // Ini tialisation de la liste d'ingredients
     this.checkIngredientList()
 
     // Initialisation de la liste de recettes

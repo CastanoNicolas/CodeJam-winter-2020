@@ -29,8 +29,8 @@ export default {
   },
   computed: {
     ingredientList () {
-      // console.log(this.$store.getters.getStockList )
-      return this.$store.state.mainModule.stockList
+      console.log(this.$store.state.mainModule.stockList)
+      return this.$store.state.mainModule.stockList.ingredientList
     }
   },
   methods: {
