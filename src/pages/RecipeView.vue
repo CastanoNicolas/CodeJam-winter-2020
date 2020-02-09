@@ -152,7 +152,7 @@ export default {
       }
       this.destination = false
       this.destination2 = false
-      this.addStock()
+      // this.addStock() // On ajoute pas au stock direct
       this.quantity = 1
     },
     enoughIngredient (ingredient, quantity) {
