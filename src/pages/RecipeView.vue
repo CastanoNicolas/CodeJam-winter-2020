@@ -1,10 +1,11 @@
 <template>
   <q-page class="q-ma-md">
     <div class="text-h6">Ingredients</div>
-    <q-list v-for="ingredient in recipeInView.ingredientList"
-    :key="ingredient.name">
+    <q-list v-for="(ingredient,k) in recipeInView.ingredientList"
+    :key="k">
       <RecipeIngredientItem
-        :itemNumber=quantities[ingredient.name]
+        :itemIndex=k
+        :itemNumber=recipeInView.quantityList
         :itemUnit=ingredient.unity
         :name=ingredient.name />
     </q-list>
@@ -91,7 +92,8 @@ export default {
       destination2: false,
       stock: false,
       shop: false,
-      quantity: 1
+      quantity: 1,
+      quantityMatches: {}
     }
   },
   mixins: [listManagerMixin],
@@ -117,6 +119,7 @@ export default {
       var ing = { 'ingredient': this.recipeInView, 'quantity': this.quantity }
       this.$store.commit('addIngredientToStockList', ing)
       this.destination = false
+      this.quantity = 1
     },
     tryRemoveShopping () {
       let remove = false
@@ -148,6 +151,7 @@ export default {
         this.$store.commit('removeIngredientFromStockList', ing)
       }
       this.destination = false
+      this.quantity = 1
       this.destination2 = false
       this.addStock()
     },

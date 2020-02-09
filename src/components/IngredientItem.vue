@@ -72,11 +72,13 @@ export default {
       var ing = { 'ingredient': this.ingredientItem, 'quantity': this.quantity }
       this.$store.commit('addIngredientToStockList', ing)
       this.destination = false
+      this.quantity = 1
     },
     addShopping () {
       var ing = { 'ingredient': this.ingredientItem, 'quantity': this.quantity }
       this.$store.commit('addIngredientToShoppingList', ing)
       this.destination = false
+      this.quantity = 1
     }
   }
 }

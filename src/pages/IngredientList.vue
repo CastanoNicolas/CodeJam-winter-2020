@@ -52,6 +52,7 @@ export default {
           this.ingredientListDisplay[key] = this.ingredientList[key]
         }
       }
+      console.log(this.ingredientList)
     }
   },
   mixins: [listManagerMixin],
@@ -64,7 +65,6 @@ export default {
     this.addIngredientToIngredientList(new Ingredient('dolipranne', 15, null, 'Kg', 'medocs'))
 
     this.updateList()
-    console.log(JSON.stringify(this.ingredientList))
   }
 
 }
