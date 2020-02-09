@@ -2,7 +2,7 @@
   <q-expansion-item switch-toggle-side expand-separator :content-inset-level="2">
     <template v-slot:header>
       <q-item-section>
-        <q-item-label class="text-weight-medium">{{name}}</q-item-label>
+        <q-item-label class="text-weight-medium"></q-item-label>
       </q-item-section>
 
       <q-item-section side>
@@ -42,9 +42,10 @@
 <script>
 export default {
   name: 'StockItem',
-  props: {
-    itemNumber: Number,
-    name: String
+  props: ['stockItem'],
+  created () {
+    console.log('Blaaaaaaaaaaa')
+    console.log(this.stockItem)
   }
 }
 </script>

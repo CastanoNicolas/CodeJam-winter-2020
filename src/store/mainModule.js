@@ -1,7 +1,7 @@
-import { RecipeList } from '../classes/RecipeList'
 import { StockList } from '../classes/StockList'
 import { ShoppingList } from '../classes/ShoppingList'
 import { IngredientList } from '../classes/IngredientList'
+import { RecipeList } from 'src/classes/RecipeList'
 
 export default {
   state: {
@@ -18,8 +18,8 @@ export default {
     removeIngredientFromIngredientList (state, ingredient) {
       state.ingredientList.removeIngredient(ingredient)
     },
-    addIngredientToStockList (state, { ingredient, quantity }) {
-      state.stockList.addIngredient(ingredient, quantity)
+    addIngredientToStockList (state, pl) {
+      state.stockList.addIngredient(pl.ingredient, pl.quantity)
     },
     removeIngredientFromStockList (state, { ingredient, quantity }) {
       state.stockList.removeIngredient(ingredient, quantity)
@@ -51,16 +51,16 @@ export default {
   },
   getters: {
     getIngredientList (state) {
-      return state.ingredientList
+      return state.ingredientList.ingredientList
     },
     getShoppingList (state) {
-      return state.shoppingList
+      return state.shoppingList.ingredientList
     },
     getStockList (state) {
       return state.stockList
     },
     getRecipeList (state) {
-      return state.recipeList
+      return state.recipeList.recipeList
     }
   }
 }
