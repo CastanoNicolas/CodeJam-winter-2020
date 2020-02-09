@@ -44,8 +44,23 @@
 
         <q-btn-group left class="q-pt-md justify-end">
           <q-btn v-if="stock" label="Stock" icon="kitchen" @click="addStock"/>
-          <q-btn v-else-if="shop" label="Cook !" icon="las la-blender"  @click="removeShopping"/>
+          <q-btn v-else-if="shop" label="Cook !" icon="las la-blender"  @click="tryRemoveShopping"/>
         </q-btn-group>
+      </q-card>
+    </q-dialog>
+
+    <q-dialog v-model="destination2">
+      <q-card style="width: 300px" class="q-px-sm q-pb-md">
+        <q-card-section>
+          <div class="text-h6">Not enough ingredients</div>
+        </q-card-section>
+
+        <q-item-label header>Create this recipe anyway ?</q-item-label>
+
+      <q-btn-group class="q-pt-md">
+        <q-btn label="Yes" icon="check" @click="removeShopping"/>
+        <q-btn label="No" icon="close"  @click="()=>{destination2 = false}"/>
+      </q-btn-group>
       </q-card>
     </q-dialog>
 
@@ -73,6 +88,7 @@ export default {
       recipeInView: '',
       quantities: {},
       destination: false,
+      destination2: false,
       stock: false,
       shop: false,
       quantity: 1
@@ -91,10 +107,37 @@ export default {
       this.quantities[this.recipeInView.ingredientList[i].name] = this.recipeInView.quantityList[i]
     }
   },
+  computed: {
+    stockList () {
+      return this.$store.state.mainModule.stockList
+    }
+  },
   methods: {
     addStock () {
       var ing = { 'ingredient': this.recipeInView, 'quantity': this.quantity }
       this.$store.commit('addIngredientToStockList', ing)
+      this.destination = false
+    },
+    tryRemoveShopping () {
+      let remove = false
+      for (const elem in this.recipeInView.ingredientList) {
+        console.log(this.recipeInView.ingredientList[elem])
+        console.log(this.recipeInView.quantityList[elem])
+        var ing = { 'ingredient': this.recipeInView.ingredientList[elem], 'quantity': this.quantity * this.recipeInView.quantityList[elem] }
+        if (this.enoughIngredient(ing.ingredient, ing.quantity)) {
+          console.log('%c Good !', 'color:green')
+          remove = true
+        } else {
+          console.log('%c Not Enough Ingredient !', 'color:red')
+          this.destination = false
+          this.destination2 = true
+          remove = false
+          return
+        }
+      }
+      if (remove) {
+        this.removeShopping()
+      }
       this.destination = false
     },
     removeShopping () {
@@ -105,6 +148,27 @@ export default {
         this.$store.commit('removeIngredientFromStockList', ing)
       }
       this.destination = false
+      this.destination2 = false
+    },
+    enoughIngredient (ingredient, quantity) {
+      console.log('%c enough ?', 'color: yellow')
+      let exist = this.stockList.ingredientExist(ingredient)
+      if (exist !== -1 && exist !== undefined) {
+        let disponible = 0
+        for (const key in this.stockList.ingredientList[ingredient.name]) {
+          if (this.stockList.ingredientList[ingredient.name].hasOwnProperty(key)) {
+            const elem = this.stockList.ingredientList[ingredient.name][key]
+            disponible += elem.quantity
+          }
+        }
+        if (disponible >= quantity) {
+          console.log()
+          return true
+        }
+      } else {
+        console.log()
+        return false
+      }
     }
   }
 }

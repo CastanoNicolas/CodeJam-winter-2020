@@ -46,18 +46,23 @@ export class StockList {
     }
   }
   ingredientExist (ingredient) {
-    return this.ingredientList[ingredient.name].findIndex(elem => {
+    console.log('exists ?')
+    if (!ingredient) {
+      return -1
+    }
+    if (this.ingredientList[ingredient.name]) {
+      return this.ingredientList[ingredient.name].findIndex(elem => {
       // remplacer par for ... in
-      if (!elem) {
-        return false
-      }
-      elem = elem.ingredient
-      if (elem.name === ingredient.name) {
-        return true
-      } else {
-        return false
-      }
-    })
+        if (!elem) {
+          return false
+        }
+        elem = elem.ingredient
+        if (elem.name === ingredient.name) {
+          return true
+        }
+      })
+    }
+    return false
   }
   recipeExist (recipe) {
     for (const key in this.recipeList) {
