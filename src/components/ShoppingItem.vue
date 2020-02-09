@@ -5,11 +5,11 @@
     </div>
 
     <q-item-section class="q-pl-md">
-      <q-item-label class="text-weight-medium">{{name}}</q-item-label>
+      <q-item-label class="text-weight-medium">{{nameItem}}</q-item-label>
     </q-item-section>
 
     <q-item-section side>
-      <q-input class="input_style" dense rounded standout v-model="itemNumber">
+      <q-input class="input_style" dense rounded standout v-model="numberItemChild" @keyup="$emit('update:numberItem', parseInt(numberItemChild));">
         <template v-slot:prepend>
           <q-icon name="remove" />
         </template>
@@ -25,10 +25,16 @@
 <script>
 export default {
   name: 'ShoppingItem',
-  props: {
-    itemNumber: Number,
-    name: String,
-    val: Boolean
+  props: ['numberItem', 'nameItem'],
+  data () {
+    return {
+      val: false,
+      numberItemChild: this.numberItem
+    }
+  },
+  created () {
+    console.log('zza')
+    console.log(this.shoppingItemChild)
   }
 }
 </script>
