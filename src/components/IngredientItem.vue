@@ -41,8 +41,8 @@
         </q-item>
 
       <q-btn-group class="q-pt-md">
-        <q-btn label="Stock" icon="kitchen"/>
-        <q-btn label="Shopping list" icon-right="add_shopping_cart" />
+        <q-btn label="Stock" icon="kitchen" @click="addStock"/>
+        <q-btn label="Shopping list" icon-right="add_shopping_cart"  @click="addShopping"/>
       </q-btn-group>
       </q-card>
     </q-dialog>
@@ -67,6 +67,16 @@ export default {
     remove () {
       this.isRemove = true
       this.$store.commit('removeIngredientFromIngredientList', this.ingredientItem)
+    },
+    addStock () {
+      var ing = { 'ingredient': this.ingredientItem, 'quantity': this.quantity }
+      this.$store.commit('addIngredientToStockList', ing)
+      this.destination = false
+    },
+    addShopping () {
+      var ing = { 'ingredient': this.ingredientItem, 'quantity': this.quantity }
+      this.$store.commit('addIngredientToShoppingList', ing)
+      this.destination = false
     }
   }
 }
