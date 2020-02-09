@@ -3,7 +3,7 @@
     <Search :label="labelSearch" :text="textSearch"/>
     <q-list>
       <StockItem v-for="(ingredient,k) in ingredientList.ingredientList" :key="k"
-        :stockItem="ingredient"/>
+        :stockItem.sync="ingredient"/>
     </q-list>
   </q-page>
 </template>
@@ -42,11 +42,15 @@ export default {
     console.log(carrote)
 
     let poireau = new Ingredient('poireau', 10, '', 'qty', ['legume', 'autre'])
+    let poireau2 = new Ingredient('poireau', 10, '', 'qty', ['legume', 'autre'])
     console.log('poireau:')
     console.log(poireau)
 
     var quantity = 12
     this.$store.commit('addIngredientToStockList', { 'ingredient': carrote, 'quantity': quantity })
+    this.$store.commit('addIngredientToStockList', { 'ingredient': poireau, 'quantity': quantity })
+    quantity = 6
+    this.$store.commit('addIngredientToStockList', { 'ingredient': poireau2, 'quantity': quantity })
     console.log(this.ingredientList)
   }
 }
