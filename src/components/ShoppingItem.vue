@@ -11,7 +11,8 @@
     <q-item-section side>
       <q-input class="input_style" dense rounded standout v-model="numberItemChild" @keyup="$emit('update:numberItem', parseInt(numberItemChild));">
         <template v-slot:prepend>
-          <q-icon name="remove" @click="minus()"/>
+          <q-icon name="remove" @click="minus()"  v-if="numberItemChild > 0"/>
+          <q-icon name="remove" disable v-if="numberItemChild <= 0"/>
         </template>
         <template v-slot:append>
           <q-icon name="add" @click="add()"/>
