@@ -56,10 +56,10 @@ export default {
     let recipies = this.$store.getters.getRecipeList
     for (const key in recipies) {
       console.log(recipies[key])
-      this.$store.commit('addRecipeToStockList', { recipe: recipies[key], quantity: 1 })
+      this.$store.commit('addRecipeToStockList', { recipe: recipies[key], quantity: 2 })
     }
     console.log(this.$store.getters.getStockList)
-    this.$store.commit('removeRecipeFromStockList', this.$store.getters.getRecipeList[0])
+    this.$store.commit('removeRecipeFromStockList', { recipe: this.$store.getters.getRecipeList['recipe test'], quantity: 1 })
 
     console.log(this.$store.getters.getStockList)
   }

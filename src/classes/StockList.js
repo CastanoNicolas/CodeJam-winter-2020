@@ -1,4 +1,3 @@
-
 export class StockList {
   constructor () {
     this.ingredientList = {}
@@ -26,6 +25,7 @@ export class StockList {
     }
   }
   addRecipe (recipe, quantity) {
+    console.log('%c ADDED ! ===>', 'font-size: 25px; color : orange')
     if (!this.recipeList[recipe.name]) {
       this.recipeList[recipe.name] = { recipe: { ...recipe, expiryDate: Date.now() + recipe.dayBeforeStale }, quantity: quantity }
     } else {
@@ -33,13 +33,14 @@ export class StockList {
     }
   }
   removeRecipe (recipe, quantity) {
+    console.log('%c REMOVED ! ===>', 'font-size: 25px; color : orange')
     // for (let index = 0; index < quantity; index++) {
     //   this.recipeList[recipe.name].shift()
     // }
     let exist = this.recipeExist(recipe)
-    if (exist !== undefined && exist !== -1) {
-      this.recipeList[recipe.name][exist].quantity -= quantity
-      if (this.recipeList[recipe.name][exist].quantity <= 0) {
+    if (exist) {
+      this.recipeList[recipe.name].quantity -= quantity
+      if (this.recipeList[recipe.name].quantity <= 0) {
         delete this.recipeList[recipe.name]
       }
     }
@@ -64,18 +65,19 @@ export class StockList {
     })
   }
   recipeExist (recipe) {
-    return this.recipeList.findIndex((elem) => {
-      // remplacer par for ... in
-      if (elem.name === recipe.name &&
-         elem.dayBeforeStale === recipe.dayBeforeStale &&
-         elem.ingredientList === recipe.ingredientList &&
-         elem.quantityList === recipe.quantityList &&
-         elem.description === recipe.description &&
-         elem.categories === recipe.categories) {
-        return true
-      } else {
-        return false
+    for (const key in this.recipeList) {
+      if (this.recipeList.hasOwnProperty(key)) {
+        const elem = this.recipeList[key].recipe
+        if (elem.name === recipe.name &&
+          elem.dayBeforeStale === recipe.dayBeforeStale &&
+          elem.ingredientList === recipe.ingredientList &&
+          elem.quantityList === recipe.quantityList &&
+          elem.description === recipe.description &&
+          elem.categories === recipe.categories) {
+          return true
+        }
       }
-    })
+    }
+    return false
   }
 }
