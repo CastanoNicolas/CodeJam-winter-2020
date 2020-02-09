@@ -41,7 +41,8 @@ export default {
       availableIngredients: {},
       chosenIngredient: null,
       quantityMatches: {},
-      recipeInView: ''
+      recipeInView: '',
+      recip: {}
     }
   },
   computed: {
@@ -81,7 +82,7 @@ export default {
     var recipeList = this.$store.getters.getRecipeList
     for (var key in recipeList) {
       if (key === this.$route.params.recipeName) {
-        this.recipeInView = recipeList[key]
+        this.recipeInView = JSON.parse(JSON.stringify(recipeList[key]))
         break
       }
     }
@@ -89,12 +90,11 @@ export default {
     if (this.recipeInView === '') {
       return
     }
-
-    var recip = Object.assign({}, this.recipeInView)
-    recip.ingredientList = Object.assign([], this.recipeInView.ingredientList)
-    recip.quantityList = Object.assign([], this.recipeInView.quantityList)
-    recip.categories = Object.assign([], this.recipeInView.categories)
-    this.$store.commit('setRecipEdited', recip)
+    this.recip = Object.assign({}, this.recipeInView)
+    this.recip.ingredientList = Object.assign([], this.recipeInView.ingredientList)
+    this.recip.quantityList = Object.assign([], this.recipeInView.quantityList)
+    this.recip.categories = Object.assign([], this.recipeInView.categories)
+    this.$store.commit('setRecipEdited', this.recip)
 
     this.$store.commit('addIngredientToIngredientList', new Ingredient('carotte', 4, null, 'Litres', 'Légumes'))
     this.$store.commit('addIngredientToIngredientList', new Ingredient('courgette', 4, null, 'Litres', 'Légumes'))
@@ -104,8 +104,8 @@ export default {
     for (k in this.ingredientList) {
       if (this.ingredientList.hasOwnProperty(k)) {
         var shouldKeep = true
-        for (var ing in recip.ingredientList) {
-          if (recip.ingredientList[ing].name === this.ingredientList[k].name) {
+        for (var ing in this.recip.ingredientList) {
+          if (this.recip.ingredientList[ing].name === this.ingredientList[k].name) {
             shouldKeep = false
             break
           }
