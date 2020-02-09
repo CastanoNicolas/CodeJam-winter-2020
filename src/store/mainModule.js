@@ -15,7 +15,7 @@ export default {
   },
   mutations: {
     setIngredientList (state, ingredientList) {
-      state.ingredientList = ingredientList
+      state.ingredientList.ingredientList = ingredientList
       console.log(state.ingredientList)
     },
     setRecipeList (state, recipeList) {

@@ -75,8 +75,11 @@ export default {
   },
   mixins: [listManagerMixin],
   created () {
+    console.log(this.ingredientList)
     for (var key in this.ingredientList) {
+      console.log('pasIf')
       if (key === this.$route.params.ingredientName) {
+        console.log('if')
         this.ingredientInView = this.ingredientList[key]
         break
       }
