@@ -3,6 +3,24 @@
     <template v-slot:header>
       <q-item-section>
         <q-item-label class="text-weight-medium">{{stockItemChild[0].ingredient.name}}</q-item-label>
+        <div class="q-gutter-md col" v-if="stockItemChild[0].ingredient.description">
+          <q-badge
+            v-for="(cat, k) in stockItemChild[0].ingredient.categories"
+            :key="k"
+            outline
+            color="secondary">
+              {{cat}}
+            </q-badge>
+        </div>
+        <div class="q-gutter-md col" v-else>
+          <q-badge
+            v-for="(cat, k) in stockItemChild[0].ingredient.categories"
+            :key="k"
+            outline
+            color="primary">
+              {{cat}}
+            </q-badge>
+        </div>
       </q-item-section>
 
       <q-item-section side v-on:click.stop>
@@ -21,7 +39,7 @@
         </q-item-section>
 
         <q-item-section side class="input_style">
-          <q-input class="input_style" dense rounded standout type="number" v-model="ensemble.quantity" @keyup="$emit('update:stockItem', stockItem);">
+          <q-input class="input_style" dense rounded standout readonly type="number" v-model="ensemble.quantity" @keyup="$emit('update:stockItem', stockItem);">
             <template v-slot:prepend>
               <q-icon name="remove" @click="ensemble.quantity -= 1; calculTotal()" v-if="ensemble.quantity > 0"/>
                 <q-icon name="remove" disable v-if="ensemble.quantity <= 0"/>
@@ -80,7 +98,7 @@ export default {
 <style>
 .input_style{
   text-align-last: center;
-  max-width: 150px;
+  max-width: 130px;
 }
 .input_readonly_style{
   text-align-last: center;

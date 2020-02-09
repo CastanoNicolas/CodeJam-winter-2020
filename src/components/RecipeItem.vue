@@ -8,7 +8,7 @@
         v-for="(cat, k) in recipeItem.categories"
         :key="k"
         outline
-        color="primary">
+        color="secondary">
           {{cat}}
         </q-badge>
     </div>
