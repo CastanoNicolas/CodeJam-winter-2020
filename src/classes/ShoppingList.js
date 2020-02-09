@@ -1,6 +1,6 @@
 export class ShoppingList {
   constructor () {
-    this.ingredientList = []
+    this.ingredientList = {}
   }
   addIngredient (ingredient, quantity) {
     if (typeof this.ingredientList[ingredient.name] === 'undefined') {
