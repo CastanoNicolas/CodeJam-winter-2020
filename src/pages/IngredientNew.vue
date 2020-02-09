@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-ma-md">
-    <div class="text-h6">Ingredient modification</div>
+    <div class="text-h6">New ingredient</div>
     <q-input
       v-model="ingredientModified.name"
       label="Name"
