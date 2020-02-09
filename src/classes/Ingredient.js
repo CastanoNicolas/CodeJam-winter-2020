@@ -4,6 +4,6 @@ export class Ingredient {
     this.dayBeforeStale = dayBeforeStale
     this.expiryDate = expiryDate
     this.unity = unity
-    this.catgeories = categories
+    this.categories = categories
   }
 }

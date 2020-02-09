@@ -1,6 +1,6 @@
 export class IngredientList {
   constructor () {
-    this.ingredientList = []
+    this.ingredientList = {}
   }
   addIngredient (ingredient) {
     this.ingredientList[ingredient.name] = ingredient

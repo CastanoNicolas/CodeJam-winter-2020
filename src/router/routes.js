@@ -8,8 +8,15 @@ const routes = [
       { path: '/ShoppingList', component: () => import('pages/ShoppingList.vue') },
       { path: '/IngredientList', component: () => import('pages/IngredientList.vue') },
       { path: '/RecipeList', component: () => import('pages/RecipeList.vue') },
-      { path: '/IngredientModification', component: () => import('pages/IngredientModification.vue') },
-      { path: '/RecipeModification', component: () => import('pages/RecipeModification.vue') }
+      { path: '/IngredientModification', component: () => import('pages/IngredientModification.vue') }
+    ]
+  },
+  {
+    path: '/RecipeView',
+    component: () => import('layouts/RecipeLayout.vue'),
+    children: [
+      { path: '/RecipeView', component: () => import('pages/RecipeView.vue') },
+      { path: '/RecipeView/Edit', component: () => import('pages/RecipeEdit.vue') }
     ]
   }
 ]

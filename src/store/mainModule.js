@@ -8,7 +8,8 @@ export default {
     ingredientList: new IngredientList(),
     recipeList: new RecipeList(),
     stockList: new StockList(),
-    shoppingList: new ShoppingList()
+    shoppingList: new ShoppingList(),
+    isEditing: false
   },
   mutations: {
     addIngredientToIngredientList (state, ingredient) {
@@ -38,10 +39,12 @@ export default {
     addRecipeToStockList (state, { recipe, quantity }) {
       state.stockList.addRecipe(recipe, quantity)
     },
-    removeRecipeToStockList (state, recipe) {
-      state.stockList.removeRecipe(recipe)
+    removeRecipeFromStockList (state, { recipe, quantity }) {
+      state.stockList.removeRecipe(recipe, quantity)
+    },
+    setEditing (state, isEditing) {
+      state.isEditing = isEditing
     }
-
   },
   actions: {
 
