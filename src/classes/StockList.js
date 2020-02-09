@@ -27,19 +27,19 @@ export class StockList {
   }
   addRecipe (recipe, quantity) {
     if (!this.recipeList[recipe.name]) {
-      this.recipeList[recipe.name] = []
+      this.recipeList[recipe.name] = { recipe: { ...recipe, expiryDate: Date.now() + recipe.dayBeforeStale }, quantity: quantity }
+    } else {
+      this.recipeList[recipe.name].quantity += quantity
     }
-
-    this.recipeList[recipe.name].push({ recipe: { ...recipe, expiryDate: Date.now() + recipe.dayBeforeStale }, quantity: quantity })
   }
   removeRecipe (recipe, quantity) {
     // for (let index = 0; index < quantity; index++) {
     //   this.recipeList[recipe.name].shift()
     // }
     let exist = this.recipeExist(recipe)
-    if (exist) {
-      exist.quantity -= quantity
-      if (exist.quantity <= 0) {
+    if (exist !== undefined && exist !== -1) {
+      this.recipeList[recipe.name][exist].quantity -= quantity
+      if (this.recipeList[recipe.name][exist].quantity <= 0) {
         delete this.recipeList[recipe.name]
       }
     }

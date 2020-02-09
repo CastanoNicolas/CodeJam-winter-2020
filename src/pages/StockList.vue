@@ -59,7 +59,9 @@ export default {
       this.$store.commit('addRecipeToStockList', { recipe: recipies[key], quantity: 1 })
     }
     console.log(this.$store.getters.getStockList)
-    // this.$store.commit('addRecipeToStockList', recipe1)
+    this.$store.commit('removeRecipeFromStockList', this.$store.getters.getRecipeList[0])
+
+    console.log(this.$store.getters.getStockList)
   }
 }
 </script>
