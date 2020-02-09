@@ -1,113 +1,74 @@
-import { Platform } from 'quasar'
-
 export const fileHelperMixin = {
   methods: {
-    getFile (path) {
-      return new Promise((resolve, reject) => {
-        if (Platform.is.electron) {
-          try {
-            // %TODO% make a global import
-            const fs = require('fs')
-            fs.readFile(path, 'utf-8', (error, data) => {
-              if (error) {
-                reject(error)
-              } else {
+    readFile (filePath) {
+      var _this = this
+      return new Promise(function (resolve, reject) {
+        // eslint-disable-next-line no-undef
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fs => {
+          console.log('read:file system open: ' + fs.name)
+          fs.root.getFile(filePath, { create: true, exclusive: false }, function (fileEntry) {
+            console.log('read:fileEntry is file?' + fileEntry.isFile.toString())
+            _this.readFileFromFE(fileEntry)
+              .then(data => {
                 resolve(data)
-              }
-            })
-          } catch (error) {
-            console.log('Failed to load module "fs"', error)
-            throw error
-          }
-        } else {
-          throw new Error('Not yet implemented')
-          // https://forum.quasar-framework.org/topic/384/help-loading-local-json-file-in-either-web-or-electron-contexts
-        }
-      })
-    },
-    saveFileById (id, tileObject, tileType) {
-      // %TODO% CHECK the id  and check if there isn't a safer way to check id => like if there is a wrong id what are you doing ?
-      this.$store.commit('updateFileCache', {
-        'id': id,
-        'object': tileObject
-      })
-      var relativePath = ''
-      if (tileType === 'leaf') {
-        relativePath += 'tileInstances/'
-      } else {
-        relativePath += 'tiles/'
-      }
-      relativePath += id + '.json'
-      // do we need to update the lookupTable ? (if this is a new leaf changed)
-      if (typeof this.lookupTable[id] === 'undefined') {
-        this.$store.commit('updateLookupTable', {
-          'id': id,
-          'path': relativePath
-        })
-        // update the lookupTableFile
-        this.saveFile(this.getLookupTablePath(), JSON.stringify(this.lookupTable, null, '\t'))
-
-        // the parent needs to get a referencve to this child too
-        this.getFileFromId(tileObject.parent)
-          .then(parentTile => {
-            parentTile.childs.push(id)
-            this.saveFileById(parentTile.id, parentTile, parentTile.type)
+              })
           })
-      }
-      return this.saveFile(this.currentWorldPath + relativePath, JSON.stringify(tileObject, null, '\t'))
-    },
-    saveFile (path, stringFile) {
-      return new Promise((resolve, reject) => {
-        if (Platform.is.electron) {
-          try {
-            const fs = require('fs')
-            fs.writeFile(path, stringFile, 'utf-8', (error, data) => {
-              if (error) {
-                reject(error)
-              } else {
-                resolve(data)
-              }
-            })
-          } catch (error) {
-            console.log('Failed to load module "fs"', error)
-            throw error
-          }
-        } else {
-          throw new Error('Not yet implemented')
-          // https://forum.quasar-framework.org/topic/384/help-loading-local-json-file-in-either-web-or-electron-contexts
-        }
+        })
       })
     },
-    getLookupTablePath () {
-      return this.currentWorldPath + 'lookupTable.json'
+    readFileFromFE (fileEntry) {
+      return new Promise(function (resolve, reject) {
+        fileEntry.file(function (file) {
+          var reader = new FileReader()
+
+          reader.onloadend = function () {
+            console.log('read:Successful file read: ' + this.result)
+
+            console.log(fileEntry.fullPath + ': ' + this.result)
+            resolve(this.result)
+          }
+          console.log(this)
+          reader.readAsText(file)
+        })
+      })
     },
-    getWorldInfoPath () {
-      return this.currentWorldPath + 'worldInfo.json'
+    writeFile (filePath, data) {
+      var _this = this
+      return new Promise(function (resolve, reject) {
+        // eslint-disable-next-line no-undef
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+          console.log('write:file system open: ' + fs.name)
+          fs.root.getFile(filePath, { create: true, exclusive: false }, function (fileEntry) {
+            console.log('write:fileEntry is file?' + fileEntry.isFile.toString())
+            _this.writeFileFromFE(fileEntry, data)
+              .then(() => {
+                resolve()
+              })
+          })
+        })
+      })
     },
-    deleteFileById (id) {
-      // get the file path
-      var path = this.getFilePathFromId(id)
-      // call deleteFile(path)
-      this.deleteFile(path)
-    },
-    deleteFile (path) {
-      try {
-        const fs = require('fs')
-        fs.unlinkSync(path)
-      } catch (err) {
-        console.error(err)
-      }
-    }
-  },
-  computed: {
-    currentWorldPath () {
-      return this.$store.state.fileModule.currentWorldPath
-    },
-    lookupTable () {
-      return this.$store.state.fileModule.lookupTable
-    },
-    filesRead () {
-      return this.$store.state.fileModule.filesRead
+    writeFileFromFE (fileEntry, jsObject) {
+      return new Promise(function (resolve, reject) {
+        // Create a FileWriter object for our FileEntry (log.txt).
+        fileEntry.createWriter(function (fileWriter) {
+          fileWriter.onwriteend = function () {
+            console.log('write:Successful file write...')
+            // fsHelpers.readFile(fileEntry)
+            resolve()
+          }
+
+          fileWriter.onerror = function (e) {
+            console.log('write:Failed file write: ' + e.toString())
+          }
+
+          // If data object is not passed in,
+          // create a new Blob instead.
+          var dataObj = new Blob([JSON.stringify(jsObject, null, 4)], { type: 'application/json' })
+
+          fileWriter.write(dataObj)
+        })
+      })
     }
   }
 }
