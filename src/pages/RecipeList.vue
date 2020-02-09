@@ -1,9 +1,9 @@
 <template>
   <q-page>
-    <Search :label="labelSearch" :text="textSearch"/>
+    <Search :label="labelSearch" :textSearch.sync="textSearch"  @updateDisplay="updateList"/>
 
     <q-list class="q-pt-md">
-      <RecipeItem v-for="recipe in recipeList" :key="recipe.name" :recipeItem="recipe">
+      <RecipeItem v-for="recipe in recipeListDisplay" :key="recipe.name" :recipeItem="recipe">
       </RecipeItem>
     </q-list>
   </q-page>
@@ -25,19 +25,20 @@ export default {
   data () {
     return {
       labelSearch: 'Search among recipes',
-      textSearch: ''
+      textSearch: '',
+      recipeListDisplay: {}
     }
   },
   created () {
     console.log('Page : RecipeList')
 
-    const newRecip = new Recipe('recipe test', 2, null, [new Ingredient('carotte', 4, null, 'litre', 'legumes'), new Ingredient('dolipranne', 15, null, 'Kg', 'medocs')], [3, 1], 'des carottes et un dolipranne', ['repas bizarre', 'bleu'])
+    // const newRecip = new Recipe('recipe test', 2, null, [new Ingredient('carotte', 4, null, 'litre', 'legumes'), new Ingredient('dolipranne', 15, null, 'Kg', 'medocs')], [3, 1], 'des carottes et un dolipranne', ['repas bizarre', 'bleu'])
 
-    const newRecip2 = new Recipe('recipe encore', 2, null, [new Ingredient('blub', 1, null, 'monument', 'legumes'), new Ingredient('dolipranne', 15, null, 'Kg', 'medocs')], [3, 1], 'des trucs et des blip bloup', ['repas equilibrer mais vegan'])
+    // const newRecip2 = new Recipe('recipe encore', 2, null, [new Ingredient('blub', 1, null, 'monument', 'legumes'), new Ingredient('dolipranne', 15, null, 'Kg', 'medocs')], [3, 1], 'des trucs et des blip bloup', ['repas equilibrer mais vegan'])
 
-    this.addRecipeToRecipeList(newRecip)
-    this.addRecipeToRecipeList(newRecip2)
-    console.log(JSON.stringify(this.recipeList))
+    // this.addRecipeToRecipeList(newRecip)
+    // this.addRecipeToRecipeList(newRecip2)
+    this.updateList()
   },
   computed: {
     // variables actualiser si changement (observables/observeur en un)
@@ -81,6 +82,15 @@ export default {
       return this.$store.getters.getStockList().find((elem) => {
         return elem.name === ingredient.name
       }).quantity >= quantity
+    },
+    updateList () {
+      this.recipeListDisplay = {}
+      var key
+      for (key in this.recipeList) {
+        if (this.recipeList.hasOwnProperty(key) && (key.toLowerCase()).includes(this.textSearch.toLowerCase())) {
+          this.recipeListDisplay[key] = this.recipeList[key]
+        }
+      }
     }
   },
   mixins: [listManagerMixin]

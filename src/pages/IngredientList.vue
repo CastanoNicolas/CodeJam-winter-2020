@@ -1,9 +1,9 @@
 <template>
    <q-page>
-    <Search :label="label" :text="text"/>
+    <Search :label="label" :textSearch.sync="textSearch"  @updateDisplay="updateList"/>
 
     <q-list class="q-pt-md">
-      <IngredientItem v-for="ingredient in ingredientList" :key="ingredient.name" :ingredientItem="ingredient">
+      <IngredientItem v-for="ingredient in ingredientListDisplay" :key="ingredient.name" :ingredientItem="ingredient">
       </IngredientItem>
     </q-list>
   </q-page>
@@ -24,7 +24,8 @@ export default {
   data () {
     return {
       label: 'Search in ingredients',
-      text: ''
+      textSearch: '',
+      ingredientListDisplay: {}
     }
   },
   computed: {
@@ -38,6 +39,15 @@ export default {
     },
     addIngredientToIngredientList (ingredient) {
       this.$store.commit('addIngredientToIngredientList', ingredient)
+    },
+    updateList () {
+      this.ingredientListDisplay = {}
+      var key
+      for (key in this.ingredientList) {
+        if (this.ingredientList.hasOwnProperty(key) && (key.toLowerCase()).includes(this.textSearch.toLowerCase())) {
+          this.ingredientListDisplay[key] = this.ingredientList[key]
+        }
+      }
     }
   },
   mixins: [listManagerMixin],

@@ -1,8 +1,8 @@
 <template>
   <q-page>
-    <Search :label="labelSearch" :text="textSearch"/>
+    <Search :label="labelSearch" :textSearch.sync="textSearch"  @updateDisplay="updateList"/>
     <q-list>
-      <StockItem v-for="(ingredient,k) in ingredientList.ingredientList" :key="k"
+      <StockItem v-for="(ingredient,k) in ingredientListDisplay" :key="k"
         :stockItem.sync="ingredient"/>
     </q-list>
   </q-page>
@@ -23,7 +23,8 @@ export default {
   data () {
     return {
       labelSearch: 'Search in stock',
-      textSearch: ''
+      textSearch: '',
+      ingredientListDisplay: {}
     }
   },
   computed: {
@@ -33,7 +34,15 @@ export default {
     }
   },
   methods: {
-
+    updateList () {
+      this.ingredientListDisplay = {}
+      var key
+      for (key in this.ingredientList) {
+        if (this.ingredientList.hasOwnProperty(key) && (key.toLowerCase()).includes(this.textSearch.toLowerCase())) {
+          this.ingredientListDisplay[key] = this.ingredientList[key]
+        }
+      }
+    }
   },
   mixins: [listManagerMixin],
   created () {
@@ -66,6 +75,8 @@ export default {
     // this.$store.commit('removeRecipeFromStockList', { recipe: this.$store.getters.getRecipeList['recipe test'], quantity: 1 })
 
     console.log(this.$store.getters.getStockList)
+
+    this.updateList()
   }
 }
 </script>
