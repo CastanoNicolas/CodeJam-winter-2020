@@ -61,6 +61,8 @@ export default {
     this.addIngredientToIngredientList(new Ingredient('Apple', 6, null, '', ['Fruit']))
     this.addIngredientToIngredientList(new Ingredient('Flour', 1000, null, 'kg', ['Cereal']))
     this.addIngredientToIngredientList(new Ingredient('Milk', 4, null, 'L', ['Protein']))
+    this.addIngredientToIngredientList(new Ingredient('carotte', 4, null, 'litre', 'legumes'))
+    this.addIngredientToIngredientList(new Ingredient('dolipranne', 15, null, 'Kg', 'medocs'))
 
     this.updateList()
   }
