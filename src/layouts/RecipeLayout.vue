@@ -59,12 +59,8 @@ export default {
       let oldRecipe = this.recipeDetails
       let newRecipe = this.$store.state.mainModule.recipEdited
 
-      for (var i = 0; i < newRecipe.ingredientList.length; i++) {
-        oldRecipe.quantityList[i] = this.$store.state.mainModule.quantitiesEdited[newRecipe.ingredientList[i].name]
-      }
-
       // uniquement en cas de modification du nom, car supprime celle avec l'ancien nom !
-      if (oldRecipe.name !== newRecipe) {
+      if (oldRecipe.name !== newRecipe.name) {
         this.$store.commit('removeRecipeFromRecipeList', oldRecipe)
       }
       this.$store.commit('addRecipeToRecipeList', newRecipe)

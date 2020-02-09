@@ -1,10 +1,11 @@
 <template>
   <q-page class="q-ma-md">
     <div class="text-h6">Ingredients</div>
-    <q-list v-for="ingredient in recipeInView.ingredientList"
-    :key="ingredient.name">
+    <q-list v-for="(ingredient,k) in recipeInView.ingredientList"
+    :key="k">
       <RecipeIngredientItem
-        :itemNumber=quantities[ingredient.name]
+        :itemIndex=k
+        :itemNumber=recipeInView.quantityList
         :itemUnit=ingredient.unity
         :name=ingredient.name />
     </q-list>
@@ -75,7 +76,8 @@ export default {
       destination: false,
       stock: false,
       shop: false,
-      quantity: 1
+      quantity: 1,
+      quantityMatches: {}
     }
   },
   mixins: [listManagerMixin],
