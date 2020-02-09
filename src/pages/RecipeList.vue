@@ -48,9 +48,9 @@ export default {
     // removeRecipeFromRecipeList (recipe) {
     //   this.$store.commit('removeRecipeFromRecipeList', recipe)
     // },
-    // addRecipeToRecipeList (recipe) {
-    //   this.$store.commit('addRecipeToRecipeList', recipe)
-    // },
+    addRecipeToRecipeList (recipe) {
+      this.$store.commit('addRecipeToRecipeList', recipe)
+    },
     addIngredientFromRecipeToShoppingList (recipe) {
       recipe.ingredientList.forEach(function (ingredient, index, array) {
         this.addIngredientToShoppingList(ingredient, recipe.quantityList[index])
