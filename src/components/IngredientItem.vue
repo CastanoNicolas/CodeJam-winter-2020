@@ -1,5 +1,5 @@
 <template>
-  <q-item class="q-mb-md">
+  <q-item class="q-mb-md" v-if="isRemove === false">
     <q-item-section class="q-pl-md column">
       <q-item-label class="col text-weight-medium">{{ingredientItem.name}}</q-item-label>
       <div class="q-pt-xs q-gutter-md col">
@@ -13,7 +13,7 @@
     </q-item-section>
     <q-btn flat round icon="add" @click="destination = true" />
     <q-btn flat round icon="edit" :to="ingredientPath"/>
-    <q-btn flat round icon="delete" />
+    <q-btn flat round icon="delete" @click="remove" />
 
     <q-dialog v-model="destination">
       <q-card style="width: 300px" class="q-px-sm q-pb-md">
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'IngredientItem',
   props: ['ingredientItem'],
@@ -58,7 +59,14 @@ export default {
       destination: false,
       slide: 11,
       quantity: 1,
+      isRemove: false,
       ingredientPath: '/IngredientEdit/' + this.ingredientItem.name
+    }
+  },
+  methods: {
+    remove () {
+      this.isRemove = true
+      this.$store.commit('removeIngredientFromIngredientList', this.ingredientItem)
     }
   }
 }
