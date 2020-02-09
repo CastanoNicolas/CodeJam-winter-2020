@@ -1,21 +1,42 @@
+import { Platform } from 'quasar'
+
 export const fileHelperMixin = {
   methods: {
     readFile (filePath) {
-      console.log('log1')
-      var _this = this
-      return new Promise(function (resolve, reject) {
-        // eslint-disable-next-line no-undef
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fs => {
-          fs.root.getFile(filePath, { create: true, exclusive: false }, function (fileEntry) {
-            _this.readFileFromFE(fileEntry)
-              .then(data => {
-                resolve(data)
-              }, err => {
-                reject(err)
-              })
+      if (Platform.is.mobile) {
+        console.log('log1')
+        var _this = this
+        return new Promise(function (resolve, reject) {
+          // eslint-disable-next-line no-undef
+          window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fs => {
+            fs.root.getFile(filePath, { create: true, exclusive: false }, function (fileEntry) {
+              _this.readFileFromFE(fileEntry)
+                .then(data => {
+                  resolve(data)
+                }, err => {
+                  reject(err)
+                })
+            })
           })
         })
-      })
+      } else if (Platform.is.electron) {
+        return new Promise(function (resolve, reject) {
+          try {
+            // %TODO% make a global import
+            const fs = require('fs')
+            fs.readFile(filePath, 'utf-8', (error, data) => {
+              if (error) {
+                reject(error)
+              } else {
+                resolve(data)
+              }
+            })
+          } catch (error) {
+            console.log('Failed to load module "fs"', error)
+            throw error
+          }
+        })
+      }
     },
     readFileFromFE (fileEntry) {
       return new Promise(function (resolve, reject) {
@@ -34,20 +55,38 @@ export const fileHelperMixin = {
       })
     },
     writeFile (filePath, data) {
-      var _this = this
-      return new Promise(function (resolve, reject) {
-        // eslint-disable-next-line no-undef
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-          console.log('write:file system open: ' + fs.name)
-          fs.root.getFile(filePath, { create: true, exclusive: false }, function (fileEntry) {
-            console.log('write:fileEntry is file?' + fileEntry.isFile.toString())
-            _this.writeFileFromFE(fileEntry, data)
-              .then(() => {
-                resolve()
-              })
+      if (Platform.is.mobile) {
+        var _this = this
+        return new Promise(function (resolve, reject) {
+          // eslint-disable-next-line no-undef
+          window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+            console.log('write:file system open: ' + fs.name)
+            fs.root.getFile(filePath, { create: true, exclusive: false }, function (fileEntry) {
+              console.log('write:fileEntry is file?' + fileEntry.isFile.toString())
+              _this.writeFileFromFE(fileEntry, data)
+                .then(() => {
+                  resolve()
+                })
+            })
           })
         })
-      })
+      } else if (Platform.is.electron) {
+        return new Promise(function (resolve, reject) {
+          try {
+            const fs = require('fs')
+            fs.writeFile(filePath, data, 'utf-8', (error, data2) => {
+              if (error) {
+                reject(error)
+              } else {
+                resolve(data2)
+              }
+            })
+          } catch (error) {
+            console.log('Failed to load module "fs"', error)
+            throw error
+          }
+        })
+      }
     },
     writeFileFromFE (fileEntry, jsObject) {
       return new Promise(function (resolve, reject) {

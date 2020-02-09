@@ -18,9 +18,9 @@ export default {
     initIngredientList () {
       var defaultIngredientList = '{"Carrot":{"name":"Carrot","dayBeforeStale":6,"expiryDate":null,"unity":"","categories":["Vegetable","Favorites"]},"Apple":{"name":"Apple","dayBeforeStale":6,"expiryDate":null,"unity":"","categories":["Fruit"]},"Flour":{"name":"Flour","dayBeforeStale":1000,"expiryDate":null,"unity":"kg","categories":["Cereal"]},"Milk":{"name":"Milk","dayBeforeStale":4,"expiryDate":null,"unity":"L","categories":["Protein"]}}'
       // var jsObject = new Ingr edientList()
-      // jsObject.ingredientLi st = JSON.parse(defaultIngredientList)
+      // jsObject.ingre dientLi st = JSON.parse(defaultIngredientList)
       this.$store.commit('setIngredientList', JSON.parse(defaultIngredientList))
-      // this.writeFil e('ingredientList.json', JSON.parse(defaultIngredientList))
+      // this.wr iteFil e('ingredientList.json', JSON.parse(defaultIngredientList))
     },
     checkIngredientList () {
       try {
@@ -38,6 +38,7 @@ export default {
           })
           .catch(err => {
             console.log(err)
+            this.initIngredientList()
           })
       } catch (err) {
         this.initIngredientList()
@@ -64,6 +65,7 @@ export default {
           })
           .catch(err => {
             console.log(err)
+            this.initShoppingList()
           })
       } catch (err) {
         this.initShoppingList()
@@ -92,6 +94,7 @@ export default {
           })
           .catch(err => {
             console.log(err)
+            this.initStockList()
           })
       } catch (err) {
         this.initStockList()
@@ -118,6 +121,7 @@ export default {
           })
           .catch(err => {
             console.log(err)
+            this.initRecipeList()
           })
       } catch (err) {
         this.initRecipeList()
