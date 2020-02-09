@@ -39,8 +39,10 @@
 </template>
 
 <script>
+import { listManagerMixin } from '../mixins/listManagerMixin'
 export default {
   name: 'StockItem',
+  mixins: [listManagerMixin],
   props: ['stockItem'],
   data () {
     return {
@@ -59,16 +61,11 @@ export default {
   },
   methods: {
     calculTotal () {
+      this.saveStockList()
       this.totalNumber = 0
       for (let i = 0; i < this.stockItem.length; i++) {
         this.totalNumber += parseInt(this.stockItem[i].quantity)
       }
-    },
-    removeOne (ensemble) {
-      this.$store.commit('removeIngredientFromStockList', {
-        'ingredient': ensemble.ingrendient,
-        'quantity': 1
-      })
     },
     remove () {
       this.isRemove = true
