@@ -1,5 +1,5 @@
 <template>
-  <q-item class="column">
+  <q-item class="column" to="/RecipeView">
     <q-item-section class="q-pl-md col">
       <q-item-label class="text-weight-medium">{{recipeItem.name}}</q-item-label>
     </q-item-section>
