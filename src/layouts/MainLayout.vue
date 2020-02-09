@@ -5,6 +5,9 @@
 
     <q-page-container>
       <router-view />
+        <q-page-sticky position="bottom-right" :offset="[20, 20]">
+          <q-btn round color="primary" icon="add"/>
+        </q-page-sticky>
     </q-page-container>
   </q-layout>
 </template>
