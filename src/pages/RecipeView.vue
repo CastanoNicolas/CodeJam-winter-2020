@@ -27,6 +27,7 @@
 
 <script>
 import RecipeIngredientItem from 'components/RecipeIngredientItem'
+import { listManagerMixin } from '../mixins/listManagerMixin'
 
 export default {
   name: 'RecipeView',
@@ -52,9 +53,27 @@ export default {
           itemNumber: 0.5,
           itemUnit: 'kg'
         }
-      ]
+      ],
+      recipeInView: ''
     }
+  },
+  computed: {
+    recipeList () {
+      return this.$store.getters.getRecipeList
+    },
+    recipeDetails () {
+      return this.recipeList[this.recipeInView]
+    }
+  },
+  methods: {
+    removeRecipe () {
+      this.$store.commit('removeRecipeFromRecipeList', this.recipeDetails)
+    }
+  },
+  mixins: [listManagerMixin],
+  created () {
   }
+
 }
 </script>
 

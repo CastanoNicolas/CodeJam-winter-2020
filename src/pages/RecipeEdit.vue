@@ -21,6 +21,8 @@
 
 <script>
 import RecipeIngredientItem from 'components/RecipeIngredientItem'
+import { listManagerMixin } from '../mixins/listManagerMixin'
+import { Recipe } from '../classes/Recipe'
 
 export default {
   name: 'RecipeEdit',
@@ -46,11 +48,31 @@ export default {
           itemNumber: 0.5,
           itemUnit: 'kg'
         }
-      ]
+      ],
+      recipeInView: '',
+      recipModified: new Recipe() // modifier les proprietes via les inputs
+    }
+  },
+  computed: {
+    recipeList () {
+      return this.$store.getters.getRecipeList
+    },
+    recipeDetails () {
+      return this.recipeList[this.recipeInView]
     }
   },
   methods: {
-
+    createRecipe () { // nouvelle recipe, ecrase une recipe si elle a le même nom !
+      this.$store.commit('addRecipeToRecipeList', this.recipModified)
+    },
+    applyModification () { // uniquement en cas de modification du nom, car supprime celle avec l'ancien nom !
+      let oldRecipe = this.recipeDetails
+      this.$store.commit('addRecipeToRecipeList', this.recipModified)
+      this.$store.commit('removeRecipeFromRecipeList', oldRecipe)
+    }
+  },
+  mixins: [listManagerMixin],
+  created () {
   }
 }
 </script>
