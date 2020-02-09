@@ -22,7 +22,7 @@
         <q-item-section side>
           <q-input class="input_style" dense rounded standout type="number" v-model="ensemble.quantity" @keyup="$emit('update:stockItem', stockItem);">
             <template v-slot:prepend>
-              <q-icon name="remove" @click="ensemble.quantity -= 1; calculTotal()" v-if="ensemble.quantity > 0"/>
+              <q-icon name="remove" @click="removeOne(ensemble); calculTotal()" v-if="ensemble.quantity > 0"/>
                 <q-icon name="remove" disable v-if="ensemble.quantity <= 0"/>
             </template>
             <template v-slot:append>
@@ -60,6 +60,12 @@ export default {
       for (let i = 0; i < this.stockItem.length; i++) {
         this.totalNumber += parseInt(this.stockItem[i].quantity)
       }
+    },
+    removeOne (ensemble) {
+      this.$store.commit('removeIngredientFromStockList', {
+        'ingredient': ensemble.ingrendient,
+        'quantity': 1
+      })
     }
   }
 }
