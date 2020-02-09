@@ -8,7 +8,7 @@ import { listManagerMixin } from '../mixins/listManagerMixin'
 import { Ingredient } from '../classes/Ingredient'
 
 export default {
-  name: 'RecipeEdit',
+  name: 'IngredientEdit',
   components: {
   },
   data () {
