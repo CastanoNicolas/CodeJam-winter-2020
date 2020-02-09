@@ -20,14 +20,14 @@ export default {
     removeIngredientFromIngredientList (state, ingredient) {
       state.ingredientList.removeIngredient(ingredient)
     },
-    addIngredientToStockList (state, pl) {
-      state.stockList.addIngredient(pl.ingredient, pl.quantity)
+    addIngredientToStockList (state, ing) {
+      state.stockList.addIngredient(ing.ingredient, ing.quantity)
     },
     removeIngredientFromStockList (state, { ingredient, quantity }) {
       state.stockList.removeIngredient(ingredient, quantity)
     },
-    addIngredientToShoppingList (state, { ingredient, quantity }) {
-      state.shoppingList.addIngredient(ingredient, quantity)
+    addIngredientToShoppingList (state, ing) {
+      state.shoppingList.addIngredient(ing.ingredient, ing.quantity)
     },
     removeIngredientFromShoppingList (state, { ingredient, quantity }) {
       state.shoppingList.removeIngredient(ingredient, quantity)
@@ -62,7 +62,7 @@ export default {
       return state.shoppingList.ingredientList
     },
     getStockList (state) {
-      return state.stockList
+      return state.stockList.ingredientList
     },
     getRecipeList (state) {
       return state.recipeList.recipeList
