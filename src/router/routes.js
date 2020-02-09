@@ -15,8 +15,8 @@ const routes = [
     path: '/RecipeView',
     component: () => import('layouts/RecipeLayout.vue'),
     children: [
-      { path: '/RecipeView', component: () => import('pages/RecipeView.vue') },
-      { path: '/RecipeView/Edit', component: () => import('pages/RecipeEdit.vue') }
+      { path: '/RecipeView/:recipeName', component: () => import('pages/RecipeView.vue') },
+      { path: '/RecipeView/Edit/:recipeName', component: () => import('pages/RecipeEdit.vue') }
     ]
   }
 ]
