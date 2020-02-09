@@ -45,12 +45,12 @@ export default {
     }
   },
   methods: {
-    removeRecipeFromRecipeList (recipe) {
-      this.$store.commit('removeRecipeFromRecipeList', recipe)
-    },
-    addRecipeToRecipeList (recipe) {
-      this.$store.commit('addRecipeToRecipeList', recipe)
-    },
+    // removeRecipeFromRecipeList (recipe) {
+    //   this.$store.commit('removeRecipeFromRecipeList', recipe)
+    // },
+    // addRecipeToRecipeList (recipe) {
+    //   this.$store.commit('addRecipeToRecipeList', recipe)
+    // },
     addIngredientFromRecipeToShoppingList (recipe) {
       recipe.ingredientList.forEach(function (ingredient, index, array) {
         this.addIngredientToShoppingList(ingredient, recipe.quantityList[index])
@@ -63,7 +63,7 @@ export default {
             this.removeIngredientFromStockList(ingredient, recipe.quantityList[index])
             return true
           } else {
-            // PROMPT MESSAGE NOT ENOUGH INGREDIENT, DO ?
+            // PROMPT MESSAGE NOT ENOUGH INGREDIENT, DO ANYWAYS ?
             return false
           }
         }
