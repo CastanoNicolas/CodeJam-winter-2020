@@ -47,9 +47,9 @@ export default {
     }
   },
   methods: {
-    removeRecipeFromRecipeList (recipe) {
-      this.$store.commit('removeRecipeFromRecipeList', recipe)
-    },
+    // removeRecipeFromRecipeList (recipe) {
+    //   this.$store.commit('removeRecipeFromRecipeList', recipe)
+    // },
     addRecipeToRecipeList (recipe) {
       this.$store.commit('addRecipeToRecipeList', recipe)
     },
@@ -65,7 +65,7 @@ export default {
             this.removeIngredientFromStockList(ingredient, recipe.quantityList[index])
             return true
           } else {
-            // PROMPT MESSAGE NOT ENOUGH INGREDIENT, DO ?
+            // PROMPT MESSAGE NOT ENOUGH INGREDIENT, DO ANYWAYS ?
             return false
           }
         }
