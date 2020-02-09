@@ -1,6 +1,5 @@
 # Quasar App made during the CGI codejam 2020
-
-
+https://github.com/Donyoku/codeJam
 
 ### Team members:
 - Nicolas C.
