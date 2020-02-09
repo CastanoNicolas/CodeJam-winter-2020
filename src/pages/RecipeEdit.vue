@@ -58,7 +58,7 @@ export default {
       return this.$store.getters.getRecipeList
     },
     recipeDetails () {
-      return this.recipeList[this.recipeInView]
+      return this.recipeList[this.recipeInView.name]
     }
   },
   methods: {
