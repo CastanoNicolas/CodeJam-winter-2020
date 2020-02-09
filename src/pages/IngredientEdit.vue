@@ -28,7 +28,6 @@
           stack-label
           input-debounce="0"
           hide-dropdown-icon
-          type="submit"
         />
       </div>
   </q-page>
