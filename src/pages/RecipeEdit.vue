@@ -39,7 +39,7 @@ export default {
         {
           name: 'Milk',
           itemNumber: 0.5,
-          itemUnit: 'L'
+          itemUnit: 'Litressdjsqoidj'
         },
         {
           name: 'Flour',
