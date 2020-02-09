@@ -25,6 +25,13 @@ const routes = [
       { path: '/IngredientEdit/:ingredientName', component: () => import('pages/IngredientEdit.vue') },
       { path: '/IngredientNew', component: () => import('pages/IngredientNew.vue') }
     ]
+  },
+  {
+    path: '/RecipeNew',
+    component: () => import('layouts/RecipeNewLayout.vue'),
+    children: [
+      { path: '/RecipeNew', component: () => import('pages/RecipeNew.vue') }
+    ]
   }
 ]
 
