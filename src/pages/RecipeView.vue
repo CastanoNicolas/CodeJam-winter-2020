@@ -96,6 +96,7 @@ export default {
       var ing = { 'ingredient': this.recipeInView, 'quantity': this.quantity }
       this.$store.commit('addIngredientToStockList', ing)
       this.destination = false
+      this.quantity = 1
     },
     removeShopping () {
       for (const elem in this.recipeInView.ingredientList) {
@@ -105,6 +106,7 @@ export default {
         this.$store.commit('removeIngredientFromStockList', ing)
       }
       this.destination = false
+      this.quantity = 1
     }
   }
 }
