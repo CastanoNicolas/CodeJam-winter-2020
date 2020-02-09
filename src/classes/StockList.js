@@ -1,4 +1,3 @@
-
 export class StockList {
   constructor () {
     this.ingredientList = {}
@@ -13,7 +12,7 @@ export class StockList {
   }
   removeIngredient (ingredient, quantity) {
     let exist = this.ingredientExist(ingredient)
-    if (exist !== undefined) {
+    if (exist !== undefined && exist !== -1) {
       this.ingredientList[ingredient.name][exist].quantity -= quantity
       if (this.ingredientList[ingredient.name][exist].quantity <= 0) {
         let rest = -this.ingredientList[ingredient.name][exist].quantity
@@ -26,27 +25,22 @@ export class StockList {
     }
   }
   addRecipe (recipe, quantity) {
-    // if (typeof this.ingredientList[recipe.name] === 'undefined') {
-    //   this.recipeList[recipe.name] = []
-    // }
-    // for (let index = 0; index < quantity; index++) {
-    //   this.recipeList[recipe.name].push({ ...recipe, expiryDate: Date.now() + recipe.dayBeforeStale })
-    // }
-    let exist = this.recipeExist(recipe)
-    if (exist) {
-      exist.quantity += quantity
+    console.log('%c ADDED ! ===>', 'font-size: 25px; color : orange')
+    if (!this.recipeList[recipe.name]) {
+      this.recipeList[recipe.name] = { recipe: { ...recipe, expiryDate: Date.now() + recipe.dayBeforeStale }, quantity: quantity }
     } else {
-      this.recipeList[recipe.name] = { recipe: { ...recipe }, quantity: quantity }
+      this.recipeList[recipe.name].quantity += quantity
     }
   }
   removeRecipe (recipe, quantity) {
+    console.log('%c REMOVED ! ===>', 'font-size: 25px; color : orange')
     // for (let index = 0; index < quantity; index++) {
     //   this.recipeList[recipe.name].shift()
     // }
     let exist = this.recipeExist(recipe)
     if (exist) {
-      exist.quantity -= quantity
-      if (exist.quantity <= 0) {
+      this.recipeList[recipe.name].quantity -= quantity
+      if (this.recipeList[recipe.name].quantity <= 0) {
         delete this.recipeList[recipe.name]
       }
     }
@@ -71,18 +65,19 @@ export class StockList {
     })
   }
   recipeExist (recipe) {
-    return this.recipeList.findIndex((elem) => {
-      // remplacer par for ... in
-      if (elem.name === recipe.name &&
-         elem.dayBeforeStale === recipe.dayBeforeStale &&
-         elem.ingredientList === recipe.ingredientList &&
-         elem.quantityList === recipe.quantityList &&
-         elem.description === recipe.description &&
-         elem.categories === recipe.categories) {
-        return true
-      } else {
-        return false
+    for (const key in this.recipeList) {
+      if (this.recipeList.hasOwnProperty(key)) {
+        const elem = this.recipeList[key].recipe
+        if (elem.name === recipe.name &&
+          elem.dayBeforeStale === recipe.dayBeforeStale &&
+          elem.ingredientList === recipe.ingredientList &&
+          elem.quantityList === recipe.quantityList &&
+          elem.description === recipe.description &&
+          elem.categories === recipe.categories) {
+          return true
+        }
       }
-    })
+    }
+    return false
   }
 }
