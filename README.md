@@ -14,6 +14,8 @@ Home automation & Cooking, 48h
 ### Description:
 A Quasar Framework app to help manage the content of your fridge. It has been designed to automatize the road of your food between the grocery store and your stomach. Furthermore, you can save your favorite recipes, and manage your usual food.
 
+This project was coded as a multi-platform app thanks to the framework Quasar and using Vue.js
+
 ### Overture:
 In the constraints of a codejam, we couldn't afford other ways but the little app we produced. In the future, we have imagined:
 + a collaboration with a supermarket so that your shopping list can be synchronised with the place you love to shop
