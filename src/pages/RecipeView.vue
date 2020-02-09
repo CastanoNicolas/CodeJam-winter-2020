@@ -1,17 +1,17 @@
 <template>
   <q-page class="q-ma-md">
     <div class="text-h6">Ingredients</div>
-    <q-list v-for="ingredient in ingredientList"
+    <q-list v-for="ingredient in recipeInView.ingredientList"
     :key="ingredient.name">
       <RecipeIngredientItem
-        :itemNumber=ingredient.itemNumber
-        :itemUnit=ingredient.itemUnit
+        :itemNumber=quantities[ingredient.name]
+        :itemUnit=ingredient.unity
         :name=ingredient.name />
     </q-list>
     <div class="q-mt-lg text-h6">Directions</div>
     <div class="q-pa-md">
     <q-input
-      v-model="directions"
+      v-model="recipeInView.description"
       type="textarea"
       readonly autogrow
     />
@@ -36,42 +36,26 @@ export default {
   },
   data () {
     return {
-      directions: 'First of all, take the eggs in a bowl (broken of course).\n\nThen, turn around, and have a great time outside. Still, if you want to keep going with the recipe, take some milk with your eggs.\n\nHowever, I forgot what is next.',
-      ingredientList: [
-        {
-          name: 'Egg',
-          itemNumber: 2,
-          itemUnit: ''
-        },
-        {
-          name: 'Milk',
-          itemNumber: 0.5,
-          itemUnit: 'Litressdjsqoidj'
-        },
-        {
-          name: 'Flour',
-          itemNumber: 0.5,
-          itemUnit: 'kg'
-        }
-      ],
-      recipeInView: ''
-    }
-  },
-  computed: {
-    recipeList () {
-      return this.$store.getters.getRecipeList
-    },
-    recipeDetails () {
-      return this.recipeList[this.recipeInView]
-    }
-  },
-  methods: {
-    removeRecipe () {
-      this.$store.commit('removeRecipeFromRecipeList', this.recipeDetails)
+      recipeInView: '',
+      quantities: {}
     }
   },
   mixins: [listManagerMixin],
   created () {
+    var recipList = this.$store.getters.getRecipeList
+    for (var key in recipList) {
+      if (key === this.$route.params.recipeName) {
+        this.recipeInView = recipList[key]
+        break
+      }
+    }
+
+    console.log(recipList)
+    console.log(this.recipeInView)
+    console.log(this.recipeInView.ingredientList)
+    for (var i = 0; i < this.recipeInView.ingredientList.length; i++) {
+      this.quantities[this.recipeInView.ingredientList[i].name] = this.recipeInView.quantityList[i]
+    }
   }
 
 }

@@ -1,7 +1,7 @@
 <template>
-  <q-item class="column" to="/RecipeView">
+  <q-item class="column" :to="recipePath">
     <q-item-section class="q-pl-md col">
-      <q-item-label class="text-weight-medium">{{recipeItem.name}}</q-item-label>
+      <q-item-label class="text-weight-medium">{{ recipeItem.name }}</q-item-label>
     </q-item-section>
     <div class="q-pa-md q-gutter-md col">
       <q-badge
@@ -20,7 +20,12 @@
 
 export default {
   name: 'RecipeItem',
-  props: ['recipeItem']
+  props: ['recipeItem'],
+  data () {
+    return {
+      recipePath: '/RecipeView/' + this.recipeItem.name
+    }
+  }
 }
 </script>
 

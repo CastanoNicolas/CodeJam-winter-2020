@@ -6,7 +6,7 @@
       </q-item-section>
 
       <q-item-section side v-on:click.stop>
-        <q-input class="input_readonly_style" dense :readonly="true" rounded standout v-model="totalNumber">
+        <q-input class="input_readonly_style" dense :readonly="true" type="number" rounded standout v-model="totalNumber">
         </q-input>
       </q-item-section>
     </template>
@@ -20,7 +20,7 @@
         </q-item-section>
 
         <q-item-section side>
-          <q-input class="input_style" dense rounded standout v-model="ensemble.quantity" @keyup="$emit('update:stockItem', stockItem);">
+          <q-input class="input_style" dense rounded standout type="number" v-model="ensemble.quantity" @keyup="$emit('update:stockItem', stockItem);">
             <template v-slot:prepend>
               <q-icon name="remove" @click="ensemble.quantity -= 1; calculTotal()" v-if="ensemble.quantity > 0"/>
                 <q-icon name="remove" disable v-if="ensemble.quantity <= 0"/>

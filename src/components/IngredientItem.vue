@@ -12,7 +12,7 @@
       </div>
     </q-item-section>
     <q-btn flat round icon="add" @click="destination = true" />
-    <q-btn flat round icon="edit" />
+    <q-btn flat round icon="edit" :to="ingredientPath"/>
     <q-btn flat round icon="delete" />
 
     <q-dialog v-model="destination">
@@ -23,12 +23,20 @@
 
         <q-item-label header>Amount</q-item-label>
         <q-item dense>
-          <q-item-section>
-            <q-input outlined bottom-slots v-model.number="quantity" type="number" >
+          <q-item-section align="center">
+            <q-input class="input_style" dense rounded standout v-model.number="quantity" type="number">
               <template v-slot:before>
                 <q-icon name="fas fa-carrot" />
               </template>
+              <template v-slot:prepend>
+                <q-icon name="remove" @click="quantity -= 1;" v-if="quantity > 0"/>
+                  <q-icon name="remove" disable v-if="quantity <= 0"/>
+              </template>
+              <template v-slot:append>
+                <q-icon name="add" @click="quantity += 1;"/>
+              </template>
             </q-input>
+
           </q-item-section>
         </q-item>
 
@@ -49,11 +57,16 @@ export default {
     return {
       destination: false,
       slide: 11,
-      quantity: 1
+      quantity: 1,
+      ingredientPath: '/IngredientEdit/' + this.ingredientItem.name
     }
   }
 }
 </script>
 
 <style>
+.input_style{
+  text-align-last: center;
+  max-width: 180px;
+}
 </style>
