@@ -13,7 +13,7 @@
 import Search from 'components/Search'
 import IngredientItem from 'components/IngredientItem'
 import { listManagerMixin } from '../mixins/listManagerMixin'
-import { Ingredient } from '../classes/Ingredient'
+// import { Ingredient } from '../classes/Ingredient'
 
 export default {
   name: 'IngredientList',
@@ -42,10 +42,11 @@ export default {
   },
   mixins: [listManagerMixin],
   created () {
-    this.addIngredientToIngredientList(new Ingredient('Carrot', 6, null, '', ['Vegetable', 'Favorites']))
-    this.addIngredientToIngredientList(new Ingredient('Apple', 6, null, '', ['Fruit']))
-    this.addIngredientToIngredientList(new Ingredient('Flour', 1000, null, 'kg', ['Cereal']))
-    this.addIngredientToIngredientList(new Ingredient('Milk', 4, null, 'L', ['Protein']))
+    // this.addIngredientToIngredientList(new Ingredient('Carrot', 6, null, '', ['Vegetable', 'Favorites']))
+    // this.addIngredientToIngredientList(new Ingredient('Apple', 6, null, '', ['Fruit']))
+    // this.addIngredientToIngredientList(new Ingredient('Flour', 1000, null, 'kg', ['Cereal']))
+    // this.addIngredientToIngredientList(new Ingredient('Milk', 4, null, 'L', ['Protein']))
+    console.log(JSON.stringify(this.ingredientList))
   }
 
 }

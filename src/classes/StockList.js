@@ -25,7 +25,7 @@ export class StockList {
     }
   }
   addRecipe (recipe, quantity) {
-    console.log('%c ADDED ! ===>', 'font-size: 25px; color : orange')
+    // console.log('%c ADDED ! ===>', 'font-size: 25px; color : orange')
     if (!this.recipeList[recipe.name]) {
       this.recipeList[recipe.name] = { recipe: { ...recipe, expiryDate: Date.now() + recipe.dayBeforeStale }, quantity: quantity }
     } else {
@@ -33,7 +33,7 @@ export class StockList {
     }
   }
   removeRecipe (recipe, quantity) {
-    console.log('%c REMOVED ! ===>', 'font-size: 25px; color : orange')
+    // console.log('%c REMOVED ! ===>', 'font-size: 25px; color : orange')
     // for (let index = 0; index < quantity; index++) {
     //   this.recipeList[recipe.name].shift()
     // }

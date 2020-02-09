@@ -12,6 +12,18 @@ export default {
     isEditing: false
   },
   mutations: {
+    setIngredientList (state, ingredientList) {
+      state.ingredientList = ingredientList
+    },
+    setRecipeList (state, recipeList) {
+      state.recipeList = recipeList
+    },
+    setStockList (state, stockList) {
+      state.stockList = stockList
+    },
+    setShoppingList (state, shoppingList) {
+      state.shoppingList = shoppingList
+    },
     addIngredientToIngredientList (state, ingredient) {
       state.ingredientList.addIngredient(ingredient)
     },
